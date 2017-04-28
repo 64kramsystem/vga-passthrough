@@ -141,18 +141,19 @@ Notes (will be expanded):
 
 ## General optimizations ##
 
-The optimizations tried did't yield any significant improvement, with a single exception for AMD platforms:
+The optimizations tried didn't yield any significant improvement, with a single exception for AMD platforms:
 
 - it's been reported (also verified on my previous AMD system) that nested paging must be disabled on AMD 4ᵗʰ generation CPUS (Bulldozer, ...), otherwise the system will go very slow (loss of ~70% of performance):
 
-    echo "options kvm-amd npt=0" > /etc/modprobe.d/kvm-amd.conf
+  `echo "options kvm-amd npt=0" > /etc/modprobe.d/kvm-amd.conf`
 
 - using the `performance` CPU governors yielded a negligible improvement
 - use CPU pinning (requires patch) yielded a negligible improvement
 - hugepages (use with `-mem-prealloc -mem-path /dev/hugepages`):
 
-    echo 'vm.nr_hugepages = 5120' > /etc/sysctl.d/50-hugepages-vfio.conf
-    $QEMU_BINARY -mem-prealloc -mem-path /dev/hugepages
+  `echo 'vm.nr_hugepages = 5120' > /etc/sysctl.d/50-hugepages-vfio.conf`
+
+  `$QEMU_BINARY -mem-prealloc -mem-path /dev/hugepages`
 
 Note that hugepages need to be locked at boot time, which will reduce the memory available for other uses.
 
