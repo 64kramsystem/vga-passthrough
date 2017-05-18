@@ -9,3 +9,5 @@
 7. http://forum.ipfire.org/viewtopic.php?t=12642 (other optimizations)
 8. https://help.ubuntu.com/community/KVM%20-%20Using%20Hugepages (enable hugepages)
 9. https://bbs.archlinux.org/viewtopic.php?pid=1270311#p1270311 (NPT et al.)
+
+[Previous: Useful tools](04_USEFUL_TOOLS.md)

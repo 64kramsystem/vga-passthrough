@@ -15,3 +15,6 @@ Create a compressed copy without unallocated space (use `--tmp`, otherwise `/tmp
 Import a directory in a disk:
 
     virt-copy-in -a $VGAPT_DISK_IMAGE /tmp/pizza /
+
+[Previous: Possible improvements](03_POSSIBLE_IMPROVEMENTS.md)
+[Next: References](05_REFERENCES.md)

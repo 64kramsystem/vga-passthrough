@@ -27,3 +27,6 @@ Note that hugepages need to be locked at boot time, which will reduce the memory
 The enlightenment `hv_spinlocks=0x1fff` causes Windows 8.1 to reboot before completing the boot.
 
 Windows 7 doesn't support enlightenments with OVMF (see https://bugzilla.redhat.com/show_bug.cgi?id=1185253, Additional info #2).
+
+[Previous: Basic setup](02_BASIC_SETUP.md)
+[Next: Useful tools](04_USEFUL_TOOLS.md)

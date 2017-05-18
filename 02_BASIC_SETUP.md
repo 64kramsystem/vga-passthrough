@@ -114,3 +114,6 @@ Notes (will be expanded):
 - keyboard and mouse as passed to the machine; if it hangs, it's not possible to switch back to the host
 - VirtIO is used to accelerate the network card emulation
 - shared folders are enabled (on the host, Samba is required)
+
+[Previous: Introduction to VGA Passthrough](01_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
+[Next: Possible improvements](03_POSSIBLE_IMPROVEMENTS.md)

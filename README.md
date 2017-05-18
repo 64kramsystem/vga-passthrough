@@ -19,7 +19,7 @@ The rationale for this document is that the information on the subject is spread
 
 Contributions or any other form of help (improvements, extensions...) are very appreciated.
 
-The main area to look at is [Possible improvements](); possibly, minor things can be improved in [Basic setup]().
+The main area to look at is [Possible improvements](03_POSSIBLE_IMPROVEMENTS.md); possibly, minor things can be improved in [Basic setup](02_BASIC_SETUP.md).
 
 The best workflow is to create a Pull request with the modifications, but you can also send me an email.
 
@@ -37,3 +37,5 @@ there are also references to my previous one:
 - Gigabyte GA-F2A88XN-WIFI FM2+ Mini ITX
 - AMD A10-7800
 - Gigabyte GTX 960 GV-N960IXOC-2GD
+
+[Next: Introduction to VGA Passthrough](01_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
