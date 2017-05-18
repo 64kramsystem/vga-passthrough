@@ -25,6 +25,10 @@ Download the Windows Virtio Drivers ISO image:
 
 the Virtio website is https://fedoraproject.org/wiki/Windows_Virtio_Drivers.
 
+Install the QEMU package, plus utilities:
+
+    apt-get install qemu-system-x86 qemu-utils
+
 ## Intel only: enable IOMMU ##
 
 Only on Intel systems, set the IOMMU kernel parameter:
@@ -58,7 +62,7 @@ IOMMU groups are sets of devices which can be virtualized only atomically; this 
 
 Ignoring the briges, there are no other devices on the same IOMMU group. If other devices are found, tricks (beyond the scope of this document) need to be used.
 
-From the above convfiguration, these are the values which need to be noted:
+From the above configuration, these are the values to take note of:
 
     VGAPT_VGA_ID='10de:1401'
     VGAPT_VGA_AUDIO_ID='10de:0fba'
@@ -76,14 +80,70 @@ Bind the vfio driver to the graphic card before any other driver:
 
 The approach above implies that the peripheral *can't* be used except for the VGA Passthrough.
 
-While it's possible that on some systems the device can be bound at any moment, on a general basis, doing so will cause instability.
+While it's possible that on some systems the device can be bound at any moment, on a general basis, doing so will increase the risk of instability.
 
-## Execute QEMU! ##
+## Gather keyboard/mouse USB id ###
 
-Reboot, then execute QEMU!
+We need keyboard and mouse USB id, in order to pass them to the VM:
 
-Sample invocation:
+    lsusb
 
+Sample output:
+
+    ...
+    Bus 001 Device 007: ID 1bcf:0824 Sunplus Innovation Technology Inc.
+    Bus 001 Device 006: ID 05f3:0007 PI Engineering, Inc. Kinesis Advantage PRO MPC/USB Keyboard
+    ...
+
+From the above configuration, these are the values to take note of:
+
+    VGAPT_KEYBOARD_ID=05f3:0007
+    VGAPT_MOUSE_ID=1bcf:0824
+
+## Create a virtual disk ##
+
+Create a virtual disk using the QEMU utility:
+
+  qemu-img create -f qcow2 /path/to/virtual_disk.img 128G
+
+In the example above, the size is 128 GiB (dynamically allocated, so it will start with a minimal occupation).
+
+## Execute QEMU, and install/prepare Windows ##
+
+Reboot, execute QEMU, and install Windows. The VirtIO drivers must also be installed, in order to maximize I/O (in particular, disk) performance.
+
+Parameters:
+
+    # Convenience script for assigning all the cores:
+    export CORES_NUMBER=$(cat /proc/cpuinfo | egrep "core id|physical id" | tr -d "\n" | sed s/physical/\\nphysical/g | grep -v ^$ | sort | uniq | wc -l)
+    # Assigned memory, in MiB:
+    export VGAPT_MEMORY=8192
+
+    export VGAPT_KEYBOARD_ID=05f3:0007
+    export VGAPT_MOUSE_ID=1bcf:0824
+
+    export VGAPT_VGA_ID='10de:1401'
+    export VGAPT_VGA_AUDIO_ID='10de:0fba'
+    export VGAPT_VGA_BUS=01:00.0
+    export VGAPT_VGA_AUDIO_BUS=01:00.1
+
+    # Standard locations from the Ubuntu `ovmf` package; last one is arbitrary:
+    export VGAPT_FIRMWARE_BIN=/usr/share/OVMF/OVMF_CODE.fd
+    export VGAPT_FIRMWARE_VARS=/usr/share/OVMF/OVMF_VARS.fd
+    export VGAPT_FIRMWARE_VARS_TMP=/tmp/OVMF_VARS.fd.tmp
+
+    # Standard location from the Ubuntu `qemu-system-x86` package:
+    export QEMU_BINARY=/usr/bin/qemu-system-x86_64
+
+    export VGAPT_DISK_IMAGE=/path/to/virtual_disk.img
+    export VGAPT_WINDOWS_ISO=/path/to/win_installation.iso
+    export VGAPT_VIRTIO_DRIVERS_ISO=/path/to/virtio-win.iso
+
+    export VGAPT_SHARED_FOLDERS=/path/to/shared_folders
+
+Invocation:
+
+    cp -f $VGAPT_FIRMWARE_VARS $VGAPT_FIRMWARE_VARS_TMP &&
     $QEMU_BINARY \
       -drive if=pflash,format=raw,readonly,file=$VGAPT_FIRMWARE_BIN \
       -drive if=pflash,format=raw,file=$VGAPT_FIRMWARE_VARS_TMP \
@@ -102,17 +162,19 @@ Sample invocation:
       -device vfio-pci,host=$VGAPT_VGA_AUDIO_BUS \
       -device virtio-scsi-pci,id=scsi \
       -drive file=$VGAPT_DISK_IMAGE,id=disk,format=qcow2,if=none,cache=writeback -device scsi-hd,drive=disk \
+      -drive file=$VGAPT_WINDOWS_ISO,id=scsicd,format=raw,if=none -device scsi-cd,drive=scsicd \
+      -drive file=$VGAPT_VIRTIO_DRIVERS_ISO,id=idecd,format=raw,if=none -device ide-cd,bus=ide.1,drive=idecd \
       -net nic,model=virtio \
-      -net user,smb=$VM_SHARED_FOLDERS \
-      -drive file=$VGAPT_VIRTIO_DRIVERS_CD,id=virtiocd,format=raw,if=none -device ide-cd,bus=ide.1,drive=virtiocd \
+      -net user,smb=$VGAPT_SHARED_FOLDERS \
     ;
+
+The above command sets two cd drives (and ISOs), one for Windows, and the other for VirtIO.
 
 Notes (will be expanded):
 
 - using `-bios` in place of the two `pflash` will prevent booting from the DVD;
 - uses the video card audio (audio card emulation is poor; between the other things, it caused windows to hang on boot);
 - keyboard and mouse as passed to the machine; if it hangs, it's not possible to switch back to the host
-- VirtIO is used to accelerate the network card emulation
 - shared folders are enabled (on the host, Samba is required)
 
 [Previous: Introduction to VGA Passthrough](01_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
