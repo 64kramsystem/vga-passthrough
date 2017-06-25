@@ -10,23 +10,51 @@ In this guide is not known:
 
 ## General optimizations ##
 
-The optimizations tried didn't yield any significant improvement, with a single exception for AMD platforms:
+The optimizations tried didn't yield any significant improvement, with a single exception for AMD platforms.
 
-- using the `performance` CPU governors yielded a negligible improvement
-- use CPU pinning (requires patch) yielded a negligible improvement
-- hugepages (use with `-mem-prealloc -mem-path /dev/hugepages`):
+Note that I try only their basic form, which in some cases may be insufficient; therefore, they may be effective when configured properly.
 
-  `echo 'vm.nr_hugepages = 5120' > /etc/sysctl.d/50-hugepages-vfio.conf`
+Thanks to Reddit user [tholin](https://www.reddit.com/user/tholin) for contributing specific details and improvements to this section.
 
-  `$QEMU_BINARY -mem-prealloc -mem-path /dev/hugepages`
+### `performance` CPU governor ###
 
-Note that hugepages need to be locked at boot time, which will reduce the memory available for other uses.
+Simply enabling it yielded a negligible improvement.
+
+It is reported that even when correctly setup, it makes a difference only on very specific cases (ie. workloads that change load a lot).
+
+Users that intend to try such tweak will also have to disable c-states.
+
+Reference: https://access.redhat.com/articles/65410
+
+### CPU pinning ###
+
+Simply enabling it (using a patched QEMU) yielded a negligible improvement.
+
+It is reported that it is mostly useful for reducing latency and stuttering.
+
+Users that intend to try such tweak will also have to reserve the CPU cores to the VM for exclusive use.
+
+Reference: https://www.redhat.com/archives/vfio-users/2017-February/msg00010.html
+
+### Hugepages ###
+
+Enabling them didn't yield any improvement (note that in my setup I have no swap; this may be related, or not).
+
+In order to use them:
+
+    echo 'vm.nr_hugepages = 5120' > /etc/sysctl.d/50-hugepages-vfio.conf
+    $QEMU_BINARY -mem-prealloc -mem-path /dev/hugepages
+
+In their basic usage, since hugepages require contiguous space, they generally have to be locked at boot time, which will reduce the memory available for other uses.
+
+It's possible to work around this by allocating them dinamycally and free them when the VM shuts down; it's not optional but it works. Reference: https://www.redhat.com/archives/vfio-users/2016-July/msg00017.html
 
 ## Optimization issues/limitations ##
 
-The enlightenment `hv_spinlocks=0x1fff` causes Windows 8.1 to reboot before completing the boot.
+The following are limitations I've found during my VFIO experimentation stage (2016 or earlier); possibly, things may have improved in the meanwhile:
 
-Windows 7 doesn't support enlightenments with OVMF (see https://bugzilla.redhat.com/show_bug.cgi?id=1185253, Additional info #2).
+- The enlightenment `hv_spinlocks=0x1fff` causes Windows 8.1 to reboot before completing the boot.
+- Windows 7 doesn't support enlightenments with OVMF (see https://bugzilla.redhat.com/show_bug.cgi?id=1185253, Additional info #2).
 
 [Previous: Basic setup](02_BASIC_SETUP.md)
 [Next: Useful tools](04_USEFUL_TOOLS.md)
