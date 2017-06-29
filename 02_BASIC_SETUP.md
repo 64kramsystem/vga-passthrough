@@ -174,8 +174,57 @@ Notes (will be expanded):
 
 - using `-bios` in place of the two `pflash` will prevent booting from the DVD;
 - uses the video card audio (audio card emulation is poor; between the other things, it caused windows to hang on boot);
-- keyboard and mouse as passed to the machine; if it hangs, it's not possible to switch back to the host
+- keyboard and mouse as passed to the machine; if it hangs, it's not possible to switch back to the host (see next paragraph for a workaround);
 - shared folders are enabled (on the host, Samba is required)
+
+## Keyboard/mouse stealing ##
+
+QEMU will steal the keyboard and mouse devices, therefore, if it hangs, it's not possible to return to the host O/S (without plugging another keyboard).
+
+There are a few approaches to this problem; the most common is to install the commercial software [Synergy](https://symless.com/synergy), which provides the sharing logic.
+
+For those who, for whatever reason, don't want to use such software, a different approach can be used.
+
+### Poor man's QEMU input devices switching ###
+
+**Requirements:**
+
+- a flash key;
+- sudo permissions, if you create/edit the script under `/usr/local/bin`;
+- an O/S with removable media automounting configured (eg. in XFCE, use `thunar-volman-settings`).
+
+**Instructions:**
+
+Plug a flash key, and create an empty file on it, with an arbitrary name, then take note of its full path, and unmount the partition:
+
+    touch /media/myuser/MYKEY/.kill_qemu
+    umount /media/myuser/MYKEY
+
+Create a script (say, `/usr/local/bin/kill_qemu.sh`), with the following content:
+
+    #!/bin/bash
+
+    kill_switch_file=/media/myuser/MYKEY/.kill_qemu    # use the filename noted above
+    sleep_time=2
+
+    while [[ ! -e "$kill_switch_file" ]]; do
+      sleep $sleep_time
+    done
+
+    echo Killing QEMU!!
+    pkill -f qemu-system-x86_64
+
+And give it executable permissions:
+
+    chmod +x /usr/local/bin/kill_qemu.sh
+
+Now, before executing QEMU, run the script in the background (sudo required):
+
+    sudo -b kill_qemu.sh
+
+Likely, you will add the execution above in your QEMU execution script.
+
+If QEMU would happen to hang, you just plug the flash key, and the script will kill QEMU once the key is mounted :-)
 
 [Previous: Introduction to VGA Passthrough](01_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
 [Next: Possible improvements](03_POSSIBLE_IMPROVEMENTS.md)
