@@ -91,14 +91,16 @@ We need keyboard and mouse USB id, in order to pass them to the VM:
 Sample output:
 
     ...
-    Bus 001 Device 007: ID 1bcf:0824 Sunplus Innovation Technology Inc.
     Bus 001 Device 006: ID 05f3:0007 PI Engineering, Inc. Kinesis Advantage PRO MPC/USB Keyboard
+    Bus 001 Device 007: ID 1bcf:0824 Sunplus Innovation Technology Inc.
     ...
 
 From the above configuration, these are the values to take note of:
 
-    VGAPT_KEYBOARD_ID=05f3:0007
-    VGAPT_MOUSE_ID=1bcf:0824
+    VGAPT_KEYBOARD_VEND_ID=05f3
+    VGAPT_KEYBOARD_PROD_ID=0007
+    VGAPT_MOUSE_VEND_ID=1bcf
+    VGAPT_MOUSE_PROD_ID=0824
 
 ## Create a virtual disk ##
 
@@ -119,8 +121,10 @@ Parameters:
     # Assigned memory, in MiB:
     export VGAPT_MEMORY=8192
 
-    export VGAPT_KEYBOARD_ID=05f3:0007
-    export VGAPT_MOUSE_ID=1bcf:0824
+    export VGAPT_KEYBOARD_VEND_ID=05f3
+    export VGAPT_KEYBOARD_PROD_ID=0007
+    export VGAPT_MOUSE_VEND_ID=1bcf
+    export VGAPT_MOUSE_PROD_ID=0824
 
     export VGAPT_VGA_ID='10de:1401'
     export VGAPT_VGA_AUDIO_ID='10de:0fba'
@@ -156,8 +160,8 @@ Invocation:
       -rtc base=localtime \
       -serial none -parallel none \
       -usb \
-      -usbdevice host:$VGAPT_KEYBOARD_ID \
-      -usbdevice host:$VGAPT_MOUSE_ID \
+      -device usb-host,vendorid=0x$VGAPT_KEYBOARD_VEND_ID,productid=0x$VGAPT_KEYBOARD_PROD_ID \
+      -device usb-host,vendorid=0x$VGAPT_MOUSE_VEND_ID,productid=0x$VGAPT_MOUSE_PROD_ID \
       -device vfio-pci,host=$VGAPT_VGA_BUS,multifunction=on \
       -device vfio-pci,host=$VGAPT_VGA_AUDIO_BUS \
       -device virtio-scsi-pci,id=scsi \
