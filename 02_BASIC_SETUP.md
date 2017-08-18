@@ -117,7 +117,7 @@ Reboot, execute QEMU, and install Windows. The VirtIO drivers must also be insta
 Parameters:
 
     # Convenience script for assigning all the cores:
-    export CORES_NUMBER=$(cat /proc/cpuinfo | egrep "core id|physical id" | tr -d "\n" | sed s/physical/\\nphysical/g | grep -v ^$ | sort | uniq | wc -l)
+    export CORES_NUMBER=$(lscpu --all -p=CORE | grep -v ^# | sort | uniq | wc -l)
     # Assigned memory, in MiB:
     export VGAPT_MEMORY=8192
 
