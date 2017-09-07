@@ -57,4 +57,4 @@ The following are limitations I've found during my VFIO experimentation stage (2
 - Windows 7 doesn't support enlightenments with OVMF (see https://bugzilla.redhat.com/show_bug.cgi?id=1185253, Additional info #2).
 
 [Previous: Basic setup](02_BASIC_SETUP.md)
-[Next: Useful tools](04_USEFUL_TOOLS.md)
+[Next: Profiling KVM](04_PROFILING_KVM.md)

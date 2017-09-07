@@ -4,8 +4,9 @@
 1. [Introduction to VGA Passthrough](01_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
 2. [Basic setup](02_BASIC_SETUP.md)
 3. [Possible improvements](03_POSSIBLE_IMPROVEMENTS.md)
-4. [Useful tools](04_USEFUL_TOOLS.md)
-5. [References](05_REFERENCES.md)
+4. [Profiling KVM](04_PROFILING_KVM.md)
+5. [Useful tools](05_USEFUL_TOOLS.md)
+6. [References](06_REFERENCES.md)
 
 # General introduction #
 
