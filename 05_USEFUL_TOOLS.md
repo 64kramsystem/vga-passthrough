@@ -16,5 +16,5 @@ Import a directory in a disk:
 
     virt-copy-in -a $VGAPT_DISK_IMAGE /tmp/pizza /
 
-[Previous: Possible improvements](03_POSSIBLE_IMPROVEMENTS.md)
-[Next: References](05_REFERENCES.md)
+[Previous: Profiling KVM](04_PROFILING_KVM.md)
+[Next: References](06_REFERENCES.md)
