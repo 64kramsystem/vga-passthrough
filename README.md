@@ -1,4 +1,12 @@
-# Table of contents
+# General introduction
+
+This repository includes my notes for setting up a VGA Passthrough on a Linux machine (it's targeted to Ubuntu; more advanced users can adapt it to other distributions).
+
+VGA passthrough is a setup which allows virtualized environments (QEMU, in this case) to perform 3D acceleration at near native speed.
+
+The rationale for this document is that the information on the subject is spread, confusing and outdated, so I've decided to create a single, consistent document - a reference.
+
+## Table of contents
 
 0. [General introduction](#general-introduction)
 1. [Introduction to VGA Passthrough](01_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
@@ -7,14 +15,6 @@
 4. [Profiling KVM](04_PROFILING_KVM.md)
 5. [Useful tools](05_USEFUL_TOOLS.md)
 6. [References](06_REFERENCES.md)
-
-# General introduction
-
-This repository includes my notes for setting up a VGA Passthrough on a Linux machine (it's targeted to Ubuntu; more advanced users can adapt it to other distributions).
-
-VGA passthrough is a setup which allows virtualized environments (QEMU, in this case) to perform 3D acceleration at near native speed.
-
-The rationale for this document is that the information on the subject is spread, confusing and outdated, so I've decided to create a single, consistent document - a reference.
 
 ## Help/Contributions
 
