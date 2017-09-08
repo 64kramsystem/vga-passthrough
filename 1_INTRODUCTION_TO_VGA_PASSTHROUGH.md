@@ -26,5 +26,4 @@ With this I want to highlight that VFIO is a relatively complicated matter, and 
 
 I stress that this example is not representative of the success rate of VFIO setups; it's a suggestion that information[s] must be very carefully analyzed.
 
-[Previous: General introduction](README.md)
-[Next: Basic setup](2_BASIC_SETUP.md)
+[Previous: General introduction](README.md) | [Next: Basic setup](2_BASIC_SETUP.md)

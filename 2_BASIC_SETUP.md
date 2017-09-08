@@ -230,5 +230,4 @@ Likely, you will add the execution above in your QEMU execution script.
 
 If QEMU would happen to hang, you just plug the flash key, and the script will kill QEMU once the key is mounted :-)
 
-[Previous: Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
-[Next: Possible improvements](3_POSSIBLE_IMPROVEMENTS.md)
+[Previous: Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md) | [Next: Possible improvements](3_POSSIBLE_IMPROVEMENTS.md)
