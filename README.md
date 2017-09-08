@@ -8,13 +8,13 @@ The rationale for this document is that the information on the subject is spread
 
 ## Table of contents
 
-0. [General introduction](#general-introduction)
-1. [Introduction to VGA Passthrough](01_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
-2. [Basic setup](02_BASIC_SETUP.md)
-3. [Possible improvements](03_POSSIBLE_IMPROVEMENTS.md)
-4. [Profiling KVM](04_PROFILING_KVM.md)
-5. [Useful tools](05_USEFUL_TOOLS.md)
-6. [References](06_REFERENCES.md)
+0. [General introduction](README.md)
+1. [Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
+2. [Basic setup](2_BASIC_SETUP.md)
+3. [Possible improvements](3_POSSIBLE_IMPROVEMENTS.md)
+4. [Profiling KVM](4_PROFILING_KVM.md)
+5. [QEMU Disk utils/LibGuestFS handy commands](5_USEFUL_TOOLS.md)
+6. [References](6_REFERENCES.md)
 
 ## Help/Contributions
 
@@ -39,4 +39,4 @@ there are also references to my previous one:
 - AMD A10-7800
 - Gigabyte GTX 960 GV-N960IXOC-2GD
 
-[Next: Introduction to VGA Passthrough](01_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
+[Next: Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
