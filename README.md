@@ -1,4 +1,4 @@
-# Table of contents #
+# Table of contents
 
 0. [General introduction](#general-introduction)
 1. [Introduction to VGA Passthrough](01_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
@@ -8,7 +8,7 @@
 5. [Useful tools](05_USEFUL_TOOLS.md)
 6. [References](06_REFERENCES.md)
 
-# General introduction #
+# General introduction
 
 This repository includes my notes for setting up a VGA Passthrough on a Linux machine (it's targeted to Ubuntu; more advanced users can adapt it to other distributions).
 
@@ -16,7 +16,7 @@ VGA passthrough is a setup which allows virtualized environments (QEMU, in this 
 
 The rationale for this document is that the information on the subject is spread, confusing and outdated, so I've decided to create a single, consistent document - a reference.
 
-## Help/Contributions ##
+## Help/Contributions
 
 Contributions or any other form of help (improvements, extensions...) are very appreciated.
 
@@ -24,7 +24,7 @@ The main area to look at is [Possible improvements](03_POSSIBLE_IMPROVEMENTS.md)
 
 The best workflow is to create a Pull request with the modifications, but you can also send me an email.
 
-## Reference system ##
+## Reference system
 
 This guide has been executed on the following system:
 

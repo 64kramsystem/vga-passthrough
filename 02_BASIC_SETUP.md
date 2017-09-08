@@ -1,10 +1,10 @@
-# Basic setup #
+# Basic setup
 
-## General notes ##
+## General notes
 
 All the commands must be run with sudo permissions.
 
-## Install/prepare required software ##
+## Install/prepare required software
 
 For a full installation, the following software is required:
 
@@ -29,20 +29,20 @@ Install the QEMU package, plus utilities:
 
     apt-get install qemu-system-x86 qemu-utils
 
-## Intel only: enable IOMMU ##
+## Intel only: enable IOMMU
 
 Only on Intel systems, set the IOMMU kernel parameter:
 
     perl -i -pe 's/(GRUB_CMDLINE_LINUX_DEFAULT=.*)"/\1 intel_iommu=on"/' /etc/default/grub
     update-grub
 
-## AMD only: disable nested paging ##
+## AMD only: disable nested paging
 
 It's been reported (also verified on my previous AMD system) that nested paging must be disabled on AMD 4ᵗʰ generation CPUS (Bulldozer, ...), otherwise the system will go very slow (loss of ~70% of performance):
 
     echo "options kvm-amd npt=0" > /etc/modprobe.d/kvm-amd.conf
 
-## Check IOMMU, and set the data ##
+## Check IOMMU, and set the data
 
 Check that the MMU has been enabled:
 
@@ -69,7 +69,7 @@ From the above configuration, these are the values to take note of:
     VGAPT_VGA_BUS=01:00.0
     VGAPT_VGA_AUDIO_BUS=01:00.1
 
-## Assign VGA devices to VFIO ##
+## Assign VGA devices to VFIO
 
 Bind the vfio driver to the graphic card before any other driver:
 
@@ -82,7 +82,7 @@ The approach above implies that the peripheral *can't* be used except for the VG
 
 While it's possible that on some systems the device can be bound at any moment, on a general basis, doing so will increase the risk of instability.
 
-## Gather keyboard/mouse USB id ###
+## Gather keyboard/mouse USB id
 
 We need keyboard and mouse USB id, in order to pass them to the VM:
 
@@ -102,7 +102,7 @@ From the above configuration, these are the values to take note of:
     VGAPT_MOUSE_VEND_ID=1bcf
     VGAPT_MOUSE_PROD_ID=0824
 
-## Create a virtual disk ##
+## Create a virtual disk
 
 Create a virtual disk using the QEMU utility:
 
@@ -110,7 +110,7 @@ Create a virtual disk using the QEMU utility:
 
 In the example above, the size is 128 GiB (dynamically allocated, so it will start with a minimal occupation).
 
-## Execute QEMU, and install/prepare Windows ##
+## Execute QEMU, and install/prepare Windows
 
 Reboot, execute QEMU, and install Windows. The VirtIO drivers must also be installed, in order to maximize I/O (in particular, disk) performance.
 
@@ -181,7 +181,7 @@ Notes (will be expanded):
 - keyboard and mouse as passed to the machine; if it hangs, it's not possible to switch back to the host (see next paragraph for a workaround);
 - shared folders are enabled (on the host, Samba is required)
 
-## Keyboard/mouse stealing ##
+## Keyboard/mouse stealing
 
 QEMU will steal the keyboard and mouse devices, therefore, if it hangs, it's not possible to return to the host O/S (without plugging another keyboard).
 
@@ -189,7 +189,7 @@ There are a few approaches to this problem; the most common is to install the co
 
 For those who, for whatever reason, don't want to use such software, a different approach can be used.
 
-### Poor man's QEMU input devices switching ###
+### Poor man's QEMU input devices switching
 
 **Requirements:**
 

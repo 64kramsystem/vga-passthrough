@@ -1,4 +1,4 @@
-# References #
+# References
 
 1. https://wiki.debian.org/VGAPassthrough
 2. https://bufferoverflow.io/gpu-passthrough

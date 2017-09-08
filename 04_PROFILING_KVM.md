@@ -1,4 +1,4 @@
-# Profiling KVM #
+# Profiling KVM
 
 In some edge cases, obscure performance issues may need be diagnosed via profiling.
 

@@ -1,4 +1,4 @@
-# QEMU Disk utils/LibGuestFS handy commands #
+# QEMU Disk utils/LibGuestFS handy commands
 
 Create a diff disk:
 

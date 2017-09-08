@@ -1,6 +1,6 @@
-# Introduction to VGA Passthrough #
+# Introduction to VGA Passthrough
 
-## A word of caution ##
+## A word of caution
 
 VGA passthrough is associated with "near-native" or "95%" performance.
 
