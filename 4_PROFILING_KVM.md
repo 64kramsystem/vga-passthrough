@@ -1,4 +1,4 @@
-# Profiling KVM #
+# Profiling KVM
 
 In some edge cases, obscure performance issues may need be diagnosed via profiling.
 
@@ -20,5 +20,5 @@ There is yet another very insightful post by [tholin](https://www.reddit.com/use
 
 The `perf` tool can be installed on Ubuntu via `apt-get install linux-tools`.
 
-[Previous: Possible improvements](03_POSSIBLE_IMPROVEMENTS.md)
-[Next: Useful tools](05_USEFUL_TOOLS.md)
+[Previous: Possible improvements](3_POSSIBLE_IMPROVEMENTS.md)
+[Next: QEMU Disk utils/LibGuestFS handy commands](5_USEFUL_TOOLS.md)

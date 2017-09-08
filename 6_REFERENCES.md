@@ -1,4 +1,4 @@
-# References #
+# References
 
 1. https://wiki.debian.org/VGAPassthrough
 2. https://bufferoverflow.io/gpu-passthrough
@@ -10,4 +10,4 @@
 8. https://help.ubuntu.com/community/KVM%20-%20Using%20Hugepages (enable hugepages)
 9. https://bbs.archlinux.org/viewtopic.php?pid=1270311#p1270311 (NPT et al.)
 
-[Previous: Useful tools](05_USEFUL_TOOLS.md)
+[Previous: QEMU Disk utils/LibGuestFS handy commands](5_USEFUL_TOOLS.md)

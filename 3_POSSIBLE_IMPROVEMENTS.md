@@ -1,6 +1,6 @@
-# Possible improvements #
+# Possible improvements
 
-## General improvements ##
+## General improvements
 
 In this guide is not known:
 
@@ -8,7 +8,7 @@ In this guide is not known:
 - whether `mem-merge=off` has overhead when only one VM is running at a time, or it doesn't (therefore, it's not meaningful to disable it);
 - the functionality of `kernel_irqchip=on`.
 
-## General optimizations ##
+## General optimizations
 
 The optimizations tried didn't yield any significant improvement, with a single exception for AMD platforms.
 
@@ -16,7 +16,7 @@ Note that I try only their basic form, which in some cases may be insufficient; 
 
 Thanks to Reddit user [tholin](https://www.reddit.com/user/tholin) for contributing specific details and improvements to this section.
 
-### `performance` CPU governor ###
+### `performance` CPU governor
 
 Simply enabling it yielded a negligible improvement.
 
@@ -26,7 +26,7 @@ Users that intend to try such tweak will also have to disable c-states.
 
 Reference: https://access.redhat.com/articles/65410
 
-### CPU pinning ###
+### CPU pinning
 
 Simply enabling it (using a patched QEMU) yielded a negligible improvement.
 
@@ -36,7 +36,7 @@ Users that intend to try such tweak will also have to reserve the CPU cores to t
 
 Reference: https://www.redhat.com/archives/vfio-users/2017-February/msg00010.html
 
-### Hugepages ###
+### Hugepages
 
 Enabling them didn't yield any improvement (note that in my setup I have no swap; this may be related, or not).
 
@@ -49,12 +49,12 @@ In their basic usage, since hugepages require contiguous space, they generally h
 
 It's possible to work around this by allocating them dinamycally and free them when the VM shuts down; it's not optional but it works. Reference: https://www.redhat.com/archives/vfio-users/2016-July/msg00017.html
 
-## Optimization issues/limitations ##
+## Optimization issues/limitations
 
 The following are limitations I've found during my VFIO experimentation stage (2016 or earlier); possibly, things may have improved in the meanwhile:
 
 - The enlightenment `hv_spinlocks=0x1fff` causes Windows 8.1 to reboot before completing the boot.
 - Windows 7 doesn't support enlightenments with OVMF (see https://bugzilla.redhat.com/show_bug.cgi?id=1185253, Additional info #2).
 
-[Previous: Basic setup](02_BASIC_SETUP.md)
-[Next: Profiling KVM](04_PROFILING_KVM.md)
+[Previous: Basic setup](2_BASIC_SETUP.md)
+[Next: Profiling KVM](4_PROFILING_KVM.md)

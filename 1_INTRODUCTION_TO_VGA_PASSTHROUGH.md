@@ -1,6 +1,6 @@
-# Introduction to VGA Passthrough #
+# Introduction to VGA Passthrough
 
-## A word of caution ##
+## A word of caution
 
 VGA passthrough is associated with "near-native" or "95%" performance.
 
@@ -27,4 +27,4 @@ With this I want to highlight that VFIO is a relatively complicated matter, and 
 I stress that this example is not representative of the success rate of VFIO setups; it's a suggestion that information[s] must be very carefully analyzed.
 
 [Previous: General introduction](README.md)
-[Next: Basic setup](02_BASIC_SETUP.md)
+[Next: Basic setup](2_BASIC_SETUP.md)
