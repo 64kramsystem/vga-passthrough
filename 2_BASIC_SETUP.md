@@ -12,12 +12,10 @@ For a full installation, the following software is required:
 - the Virtio drivers, which accelerate various emulated hardware;
 - and of course, QEMU.
 
-QEMU 2.9 (or earlier) users can download and install the latest OVMF Ubuntu package:
+Install the latest OVMF Ubuntu package:
 
-    wget http://de.archive.ubuntu.com/ubuntu/pool/universe/e/edk2/ovmf_0~20161202.7bbe0b3e-1_all.deb -O /tmp/ovmf.deb
+    wget http://de.archive.ubuntu.com/ubuntu/pool/universe/e/edk2/ovmf_0~20170911.5dfba97c-1_all.deb -O /tmp/ovmf.deb
     dpkg -i /tmp/ovmf.deb
-
-QEMU 2.10 users must [build the package from the OVMF repository](#build-the-ovmf-firmware-qemu-210), since this release uncovers some significant bugs in the OVMF version packaged by Ubuntu.
 
 Download the Windows Virtio Drivers ISO image:
 
@@ -28,43 +26,6 @@ the Virtio website is https://fedoraproject.org/wiki/Windows_Virtio_Drivers.
 Install the QEMU package, plus utilities:
 
     apt-get install qemu-system-x86 qemu-utils
-
-### Build the OVMF firmware (QEMU 2.10+)
-
-Prepare the machine:
-
-    sudo apt-get install build-essential uuid-dev iasl git gcc-5 nasm
-
-Clone the repository and change path:
-
-    git clone https://github.com/tianocore/edk2.git
-    cd edk2
-
-Compile and build the tools:
-
-    make -C BaseTools
-    export EDK_TOOLS_PATH=$(pwd)/BaseTools
-    . edksetup.sh BaseTools
-
-Configure the build, in this case for an X64 target:
-
-    export COMPILATION_MAX_THREADS=$((1 + $(lscpu --all -p=CPU | grep -v ^# | sort | uniq | wc -l)))
-    
-    perl -i -pe 's/^(ACTIVE_PLATFORM).*              /$1 = OvmfPkg\/OvmfPkgX64.dsc/x'  Conf/target.txt
-    perl -i -pe 's/^(TOOL_CHAIN_TAG).*               /$1 = GCC5/x'                     Conf/target.txt
-    perl -i -pe 's/^(TARGET_ARCH).*                  /$1 = X64/x'                      Conf/target.txt
-    perl -i -pe "s/^(MAX_CONCURRENT_THREAD_NUMBER).*/\$1 = $COMPILATION_MAX_THREADS/x" Conf/target.txt
-
-Build:
-
-    build
-
-Enjoy!:
-
-    $ ls -1 Build/OvmfX64/DEBUG_GCC5/FV/OVMF_*.fd
-    Build/OvmfX64/DEBUG_GCC5/FV/OVMF_CODE.fd
-    Build/OvmfX64/DEBUG_GCC5/FV/OVMF_VARS.fd
-
 
 ## Intel only: enable IOMMU
 
@@ -226,11 +187,16 @@ There are a few approaches to this problem; the most common is to install the co
 
 For those who, for whatever reason, don't want to use such software, a different approach can be used.
 
-### Poor man's QEMU input devices switching
+### Poor man's QEMU input devices switching workaround
+
+During VFIO virtualization sessions, typically keyboard/mouse switching is not required.  
+In real world scenarios, switching is only required if the guest hangs: in this case, QEMU won't release the USB devices, and if there is no mean for switching mouse/keyboard (or if one hasn't got a second keyboard), a host reboot will need to be performed.
+
+A curious way to handle this problem is to set a "kill switch": something that will terminate QEMU at will, without need for mouse/keyboard. This implementation is performed with the help of a USB drive.
 
 **Requirements:**
 
-- a flash key;
+- a flash key (or any USB drive);
 - sudo permissions, if you create/edit the script under `/usr/local/bin`;
 - an O/S with removable media automounting configured (eg. in XFCE, use `thunar-volman-settings`).
 
@@ -267,4 +233,4 @@ Likely, you will add the execution above in your QEMU execution script.
 
 If QEMU would happen to hang, you just plug the flash key, and the script will kill QEMU once the key is mounted :-)
 
-[Previous: Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md) | [Next: Possible improvements](3_POSSIBLE_IMPROVEMENTS.md)
+[Previous: Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md) | [Next: Troubleshooting](3_TROUBLESHOOTING.md)

@@ -1,5 +1,15 @@
 # Introduction to VGA Passthrough
 
+## Table of contents
+
+1. [Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
+2. [Basic setup](2_BASIC_SETUP.md)
+3. [Troubleshooting](3_TROUBLESHOOTING.md)
+4. [Possible improvements](4_POSSIBLE_IMPROVEMENTS.md)
+5. [Profiling KVM](5_PROFILING_KVM.md)
+6. [QEMU Disk utils/LibGuestFS handy commands](6_USEFUL_TOOLS.md)
+7. [References](7_REFERENCES.md)
+
 ## A word of caution
 
 VGA passthrough is associated with "near-native" or "95%" performance.
@@ -26,4 +36,4 @@ With this I want to highlight that VFIO is a relatively complicated matter, and 
 
 I stress that this example is not representative of the success rate of VFIO setups; it's a suggestion that information[s] must be very carefully analyzed.
 
-[Previous: General introduction](README.md) | [Next: Basic setup](2_BASIC_SETUP.md)
+[Next: Basic setup](2_BASIC_SETUP.md)
