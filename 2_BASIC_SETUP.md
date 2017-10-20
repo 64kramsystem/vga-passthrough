@@ -187,11 +187,16 @@ There are a few approaches to this problem; the most common is to install the co
 
 For those who, for whatever reason, don't want to use such software, a different approach can be used.
 
-### Poor man's QEMU input devices switching
+### Poor man's QEMU input devices switching workaround
+
+During VFIO virtualization sessions, typically keyboard/mouse switching is not required.  
+In real world scenarios, switching is only required if the guest hangs: in this case, QEMU won't release the USB devices, and if there is no mean for switching mouse/keyboard (or if one hasn't got a second keyboard), a host reboot will need to be performed.
+
+A curious way to handle this problem is to set a "kill switch": something that will terminate QEMU at will, without need for mouse/keyboard. This implementation is performed with the help of a USB drive.
 
 **Requirements:**
 
-- a flash key;
+- a flash key (or any USB drive);
 - sudo permissions, if you create/edit the script under `/usr/local/bin`;
 - an O/S with removable media automounting configured (eg. in XFCE, use `thunar-volman-settings`).
 
