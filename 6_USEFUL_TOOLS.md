@@ -1,19 +1,42 @@
 # QEMU Disk utils/LibGuestFS handy commands
 
-Create a diff disk:
+1. Create a diff disk:
 
-    qemu-img create -f qcow2 -b $VGAPT_DISK_IMAGE $VGAPT_DISK_IMAGE.diff
+    qemu-img create -f qcow2 -b "$DISK_IMAGE" "$DISK_IMAGE.diff"
 
-Create a merged copy a disk (of any type):
+2. Create a compressed copy of a disk (can also be used to merge a diff image):
 
-    qemu-img convert -p $VGAPT_DISK_IMAGE.diff -O qcow2 $VGAPT_DISK_IMAGE.merged
+    # [-p]rogress, [-O]utput format, [-c]ompressed
+    qemu-img convert -p -O qcow2 -c "$DISK_IMAGE" "$DISK_IMAGE.merged"
 
-Create a compressed copy without unallocated space (use `--tmp`, otherwise `/tmp` is used!!):
+3. Create a compressed copy without unallocated space (use `--tmp`, otherwise `/tmp` is used!!):
 
-    virt-sparsify --compress --tmp $(dirname $VGAPT_DISK_IMAGE) $VGAPT_DISK_IMAGE $VGAPT_DISK_IMAGE.sparse.compressed
+    virt-sparsify --compress --tmp $(dirname "$DISK_IMAGE") "$DISK_IMAGE" "$DISK_IMAGE.sparse.compressed"
 
-Import a directory in a disk:
+4. Import a directory in a disk:
 
-    virt-copy-in -a $VGAPT_DISK_IMAGE /tmp/pizza /
+    virt-copy-in -a "$DISK_IMAGE" /tmp/pizza /
+
+5. Mount a disk using `qemu-nbd`:
+
+    $ PARTITION_NUMBER=4                           # 1-based
+    $ modprobe nbd max_part=8
+    $ qemu-nbd --connect=/dev/nbd0 "$DISK_IMAGE"   # wait a second after this
+    $ partprobe /dev/nbd0
+    $ mount "/dev/nbd0p"$PARTITION_NUMBER" /mnt
+
+6. and unmount:
+
+    $ umount /mnt
+    $ qemu-nbd --disconnect /dev/nbd0
+    $ rmmod nbd
+
+7. Mounting a disk can also be used to shrink an image:
+
+    # mount the disk (5.)
+    $ dd -status=progress if=/dev/zero of=/mnt/ZEROFILE
+    $ rm /mnt/ZEROFILE
+    # now umount the disk (6.)
+    # now compress the image (2.)
 
 [Previous: Profiling KVM](5_PROFILING_KVM.md) | [Next: References](7_REFERENCES.md)
