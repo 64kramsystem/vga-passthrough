@@ -10,17 +10,19 @@ The rationale for this document is that the information on the subject is spread
 
 0. [General introduction](README.md)
 1. [Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
-2. [Basic setup](2_BASIC_SETUP.md)
-3. [Possible improvements](3_POSSIBLE_IMPROVEMENTS.md)
-4. [Profiling KVM](4_PROFILING_KVM.md)
-5. [QEMU Disk utils/LibGuestFS handy commands](5_USEFUL_TOOLS.md)
-6. [References](6_REFERENCES.md)
+2. [A word of caution](2_A_WORD_OF_CAUTION.md)
+3. [Basic setup](3_BASIC_SETUP.md)
+4. [Troubleshooting](4_TROUBLESHOOTING.md)
+5. [Possible improvements](5_POSSIBLE_IMPROVEMENTS.md)
+6. [Profiling KVM](6_PROFILING_KVM.md)
+7. [QEMU Disk utils/LibGuestFS handy commands](7_USEFUL_TOOLS.md)
+8. [References](8_REFERENCES.md)
 
 ## Help/Contributions
 
 Contributions or any other form of help (improvements, extensions...) are very appreciated.
 
-The main area to look at is [Possible improvements](03_POSSIBLE_IMPROVEMENTS.md); possibly, minor things can be improved in [Basic setup](02_BASIC_SETUP.md).
+The main area to look at is [Possible improvements](5_POSSIBLE_IMPROVEMENTS.md); possibly, minor things can be improved in [Basic setup](3_BASIC_SETUP.md).
 
 The best workflow is to create a Pull request with the modifications, but you can also send me an email.
 

@@ -20,4 +20,4 @@ There is yet another very insightful post by [tholin](https://www.reddit.com/use
 
 The `perf` tool can be installed on Ubuntu via `apt-get install linux-tools`.
 
-[Previous: Possible improvements](4_POSSIBLE_IMPROVEMENTS.md) | [Next: QEMU Disk utils/LibGuestFS handy commands](6_USEFUL_TOOLS.md)
+[Previous: Possible improvements](5_POSSIBLE_IMPROVEMENTS.md) | [Next: QEMU Disk utils/LibGuestFS handy commands](7_USEFUL_TOOLS.md)
