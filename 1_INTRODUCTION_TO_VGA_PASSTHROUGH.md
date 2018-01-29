@@ -1,39 +1,34 @@
 # Introduction to VGA Passthrough
 
-## Table of contents
+## Advantages of VGA Passthrough
 
-1. [Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
-2. [Basic setup](2_BASIC_SETUP.md)
-3. [Troubleshooting](3_TROUBLESHOOTING.md)
-4. [Possible improvements](4_POSSIBLE_IMPROVEMENTS.md)
-5. [Profiling KVM](5_PROFILING_KVM.md)
-6. [QEMU Disk utils/LibGuestFS handy commands](6_USEFUL_TOOLS.md)
-7. [References](7_REFERENCES.md)
+Although setting up a VGA Passthrough may arguably be a "convenience net negative" (switching system on a dual boot system takes less than a minute), there are very interesting use cases.
 
-## A word of caution
+The main, significant advantage, is the rollback ability of virtual machines. Since with this setup it's trivial to rollback a system by deleting a single file (assuming a diff disk setup), malware essentially doesn't pose a threat.  
+(To be pedantic, there is the risk of malware capable of crossing the virtualization boundaries, but this is a tiny risk; arguably, a disk failure is more likely.)
 
-VGA passthrough is associated with "near-native" or "95%" performance.
+Another significant advantage is the ease of reinstallation (which is an unfortunate routine of Windows systems); again, with a diff disk setup, one can have a frozen snapshot of the installed system, and roll back to it by deleting one file.
 
-This is an example benchmark (with a little editing) of Metro Last Light Redux, on my previous system:
+Of course, VGA Passthrough is not appropriate for those seeking 100% of performance, but for those who are OK with "95%", there are significant advantages.
 
-![Native](metro_benchmark/native_amd.png?raw=true "Native")
-![VFIO](metro_benchmark/vfio_amd.png?raw=true "VFIO")
+## Guide and audience orientation
 
-... guess what? It's almost exactly 95% of native performance!
+This guide is intended to be a walkthrough more than a troubleshooting guide.
 
-But let's have a more detailed look at the graphs:
+The audience is therefore, indicatively, people who have appropriate hardware, and want an easy, hassle-free, way to setup and the virtualization, rather than those who are spending, or spent, hours trying to make passthrough work [perfectly] on their system.
 
-![Native](https://rawgithub.com/saveriomiroddi/vga-passthrough/master/metro_benchmark/native_amd.svg)
-![VFIO](https://rawgithub.com/saveriomiroddi/vga-passthrough/master/metro_benchmark/vfio_amd.svg)
+This is not as obvious as it sounds, because there is a surprising amount of users who spend hours and hours trying to solve the infamous audio crackling issue, when a 3€ USB sound card solves the issue permanently and perfectly.
 
-... ooops!
+## Philosophy
 
-This setup had very good average framerate (truly ~95% across the board, as commonly), but severe issues with latency, causing wild stuttering.
+I think one common misunderstanding of VGA Passthrough is to conceptually put software before hardware, which leads to thinking that with enough tweaking and experimentation, a system will work.
 
-"Near native performance"? Not so much.
+This is not the case in real life: VGA Passthrough is not a very mature and widely supported technology, both in the software and hardware, and  may be well beyond the level of somebody without low-level knowledge of the technology.
 
-With this I want to highlight that VFIO is a relatively complicated matter, and you should healthily distrust typical "IT WORKS P3RF3CTLY" statements, as they are significantly subject to narcissism and/or plain incompetence (I had the very same experience when building a Raspberry Pi access point, and with the Surface Pro 3... but they're other stories).
+Trying to hammer a system intto working generally leads to a rabbit hole and loss of countless hours and hair; the unfortunate downside of this type of pursuits it that there is *always* one more change worth trying.
 
-I stress that this example is not representative of the success rate of VFIO setups; it's a suggestion that information[s] must be very carefully analyzed.
+However mature though, the upside is that on systems where the VGA Passthrough works without tweaks, it's very solid, virtually with no issues.
 
-[Next: Basic setup](2_BASIC_SETUP.md)
+For time-sensitive people, the best strategy is to briefly test if the system is compatible (by following this guide), and if it doesn't, to directly plan a system upgrade, without attempting any tweak.
+
+[Previous: General introduction](README.md) | [Next: A word of caution](2_A_WORD_OF_CAUTION.md)
