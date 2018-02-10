@@ -80,6 +80,14 @@ The approach above implies that the peripheral *can't* be used except for the VG
 
 While it's possible that on some systems the device can be bound at any moment, on a general basis, doing so will increase the risk of instability.
 
+## Ensure that the VGA drivers are not taking control of the card
+
+It's important to uninstall the host VGA drivers, if they are installed, as they may take over the card control before the VFIO driver.
+
+In case the drivers are standard part of the system (eg. nouveau), it's possible to blacklist them.
+
+As of today, this document doesn't cover how to be 100% sure that VFIO takes control of one VGA, on a system with two cards from the same producer.
+
 ## Gather keyboard/mouse USB id
 
 We need keyboard and mouse USB id, in order to pass them to the VM:
