@@ -39,4 +39,4 @@
     # now umount the disk (6.)
     # now compress the image (2.)
 
-[Previous: Profiling KVM](6_PROFILING_KVM.md) | [Next: References](8_REFERENCES.md)
+[Previous: Profiling KVM](7_PROFILING_KVM.md) | [Next: References](9_REFERENCES.md)

@@ -12,11 +12,12 @@ The rationale for this document is that the information on the subject is spread
 1. [Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
 2. [A word of caution](2_A_WORD_OF_CAUTION.md)
 3. [Basic setup](3_BASIC_SETUP.md)
-4. [Troubleshooting](4_TROUBLESHOOTING.md)
-5. [Possible improvements](5_POSSIBLE_IMPROVEMENTS.md)
-6. [Profiling KVM](6_PROFILING_KVM.md)
-7. [QEMU Disk utils/LibGuestFS handy commands](7_USEFUL_TOOLS.md)
-8. [References](8_REFERENCES.md)
+4. [Input handling](4_INPUT_HANDLING.md)
+5. [Troubleshooting](5_TROUBLESHOOTING.md)
+6. [Possible improvements](6_POSSIBLE_IMPROVEMENTS.md)
+7. [Profiling KVM](7_PROFILING_KVM.md)
+8. [QEMU Disk utils/LibGuestFS handy commands](8_USEFUL_TOOLS.md)
+9. [References](9_REFERENCES.md)
 
 ## Help/Contributions
 

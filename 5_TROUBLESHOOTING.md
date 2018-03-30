@@ -43,4 +43,4 @@ Enjoy!:
     $ ls -1 Build/OvmfX64/DEBUG_GCC5/FV/OVMF_*.fd
     Build/OvmfX64/DEBUG_GCC5/FV/OVMF_CODE.fd
     Build/OvmfX64/DEBUG_GCC5/FV/OVMF_VARS.fd
-[Previous: Basic setup](3_BASIC_SETUP.md) | [Next: Possible improvements](5_POSSIBLE_IMPROVEMENTS.md)
+[Previous: Input handling](4_INPUT_HANDLING.md) | [Next: Possible improvements](6_POSSIBLE_IMPROVEMENTS.md)
