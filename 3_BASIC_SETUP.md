@@ -88,26 +88,6 @@ In case the drivers are standard part of the system (eg. nouveau), it's possible
 
 As of today, this document doesn't cover how to be 100% sure that VFIO takes control of one VGA, on a system with two cards from the same producer.
 
-## Gather keyboard/mouse USB id
-
-We need keyboard and mouse USB id, in order to pass them to the VM:
-
-    lsusb
-
-Sample output:
-
-    ...
-    Bus 001 Device 006: ID 05f3:0007 PI Engineering, Inc. Kinesis Advantage PRO MPC/USB Keyboard
-    Bus 001 Device 007: ID 1bcf:0824 Sunplus Innovation Technology Inc.
-    ...
-
-From the above configuration, these are the values to take note of:
-
-    VGAPT_KEYBOARD_VEND_ID=05f3
-    VGAPT_KEYBOARD_PROD_ID=0007
-    VGAPT_MOUSE_VEND_ID=1bcf
-    VGAPT_MOUSE_PROD_ID=0824
-
 ## Create a virtual disk
 
 Create a virtual disk using the QEMU utility:
@@ -126,11 +106,6 @@ Parameters:
     export CORES_NUMBER=$(lscpu --all -p=CORE | grep -v ^# | sort | uniq | wc -l)
     # Assigned memory, in MiB:
     export VGAPT_MEMORY=8192
-
-    export VGAPT_KEYBOARD_VEND_ID=05f3
-    export VGAPT_KEYBOARD_PROD_ID=0007
-    export VGAPT_MOUSE_VEND_ID=1bcf
-    export VGAPT_MOUSE_PROD_ID=0824
 
     export VGAPT_VGA_ID='10de:1401'
     export VGAPT_VGA_AUDIO_ID='10de:0fba'
@@ -162,12 +137,10 @@ Invocation:
       -cpu host,kvm=off,hv_vendor_id=vgaptrocks,hv_relaxed,hv_spinlocks=0x1fff,hv_vapic,hv_time \
       -smp $CORES_NUMBER,cores=$CORES_NUMBER,sockets=1,threads=1 \
       -m $VGAPT_MEMORY \
-      -vga none \
+      -display gtk -vga qxl \
       -rtc base=localtime \
       -serial none -parallel none \
       -usb \
-      -device usb-host,vendorid=0x$VGAPT_KEYBOARD_VEND_ID,productid=0x$VGAPT_KEYBOARD_PROD_ID \
-      -device usb-host,vendorid=0x$VGAPT_MOUSE_VEND_ID,productid=0x$VGAPT_MOUSE_PROD_ID \
       -device vfio-pci,host=$VGAPT_VGA_BUS,multifunction=on \
       -device vfio-pci,host=$VGAPT_VGA_AUDIO_BUS \
       -device virtio-scsi-pci,id=scsi \
@@ -180,65 +153,11 @@ Invocation:
 
 The above command sets two cd drives (and ISOs), one for Windows, and the other for VirtIO.
 
-Notes (will be expanded):
+Notes:
 
 - using `-bios` in place of the two `pflash` will prevent booting from the DVD;
-- uses the video card audio (audio card emulation is poor; between the other things, it caused windows to hang on boot);
-- keyboard and mouse as passed to the machine; if it hangs, it's not possible to switch back to the host (see next paragraph for a workaround);
-- shared folders are enabled (on the host, Samba is required)
+- uses the video card audio (audio card emulation is poor/unstable);
+- shared folders are enabled (on the host, Samba is required);
+- this setup has two graphics adapters (emulated and VFIO), with the QEMU user interface; for a description of the input (keyboard/mouse) handling strategies, see the next chapter.
 
-## Keyboard/mouse stealing
-
-QEMU will steal the keyboard and mouse devices, therefore, if it hangs, it's not possible to return to the host O/S (without plugging another keyboard).
-
-There are a few approaches to this problem; the most common is to install the commercial software [Synergy](https://symless.com/synergy), which provides the sharing logic.
-
-For those who, for whatever reason, don't want to use such software, a different approach can be used.
-
-### Poor man's QEMU input devices switching workaround
-
-During VFIO virtualization sessions, typically keyboard/mouse switching is not required.  
-In real world scenarios, switching is only required if the guest hangs: in this case, QEMU won't release the USB devices, and if there is no mean for switching mouse/keyboard (or if one hasn't got a second keyboard), a host reboot will need to be performed.
-
-A curious way to handle this problem is to set a "kill switch": something that will terminate QEMU at will, without need for mouse/keyboard. This implementation is performed with the help of a USB drive.
-
-**Requirements:**
-
-- a flash key (or any USB drive);
-- sudo permissions, if you create/edit the script under `/usr/local/bin`;
-- an O/S with removable media automounting configured (eg. in XFCE, use `thunar-volman-settings`).
-
-**Instructions:**
-
-Plug a flash key, and create an empty file on it, with an arbitrary name, then take note of its full path, and unmount the partition:
-
-    touch /media/myuser/MYKEY/.kill_qemu
-    umount /media/myuser/MYKEY
-
-Create a script (say, `/usr/local/bin/kill_qemu.sh`), with the following content:
-
-    #!/bin/bash
-
-    kill_switch_file=/media/myuser/MYKEY/.kill_qemu    # use the filename noted above
-    sleep_time=2
-
-    while [[ ! -e "$kill_switch_file" ]]; do
-      sleep $sleep_time
-    done
-
-    echo Killing QEMU!!
-    pkill -f qemu-system-x86_64
-
-And give it executable permissions:
-
-    chmod +x /usr/local/bin/kill_qemu.sh
-
-Now, before executing QEMU, run the script in the background (sudo required):
-
-    sudo -b kill_qemu.sh
-
-Likely, you will add the execution above in your QEMU execution script.
-
-If QEMU would happen to hang, you just plug the flash key, and the script will kill QEMU once the key is mounted :-)
-
-[Previous: A word of caution](2_A_WORD_OF_CAUTION.md) | [Next: Troubleshooting](4_TROUBLESHOOTING.md)
+[Previous: A word of caution](2_A_WORD_OF_CAUTION.md) | [Next: Input handling](4_INPUT_HANDLING.md)

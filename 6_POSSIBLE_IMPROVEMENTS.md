@@ -28,9 +28,9 @@ Reference: https://access.redhat.com/articles/65410
 
 ### CPU pinning
 
-Simply enabling it (using a patched QEMU) yielded a negligible improvement.
+Simply enabling it (using [my patched QEMU fork](https://github.com/saveriomiroddi/qemu-pinning)) yielded a negligible improvement.
 
-It is reported that it is mostly useful for reducing latency and stuttering.
+It is reported that it can reduce latency and stuttering in certain edge cases.
 
 Users that intend to try such tweak will also have to reserve the CPU cores to the VM for exclusive use.
 
@@ -56,4 +56,4 @@ The following are limitations I've found during my VFIO experimentation stage (2
 - The enlightenment `hv_spinlocks=0x1fff` causes Windows 8.1 to reboot before completing the boot.
 - Windows 7 doesn't support enlightenments with OVMF (see https://bugzilla.redhat.com/show_bug.cgi?id=1185253, Additional info #2).
 
-[Previous: Troubleshooting](4_TROUBLESHOOTING.md) | [Next: Profiling KVM](6_PROFILING_KVM.md)
+[Previous: Troubleshooting](5_TROUBLESHOOTING.md) | [Next: Profiling KVM](7_PROFILING_KVM.md)
