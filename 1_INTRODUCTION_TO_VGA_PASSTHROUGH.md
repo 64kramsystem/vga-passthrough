@@ -15,17 +15,17 @@ Of course, VGA Passthrough is not appropriate for those seeking 100% of performa
 
 This guide is intended to be a walkthrough more than a troubleshooting guide.
 
-The audience is therefore, indicatively, people who have appropriate hardware, and want an easy, hassle-free, way to setup and the virtualization, rather than those who are spending, or spent, hours trying to make passthrough work [perfectly] on their system.
+The audience is therefore, people who have hardware already known to work well with VFIO, and want an easy, hassle-free, way to setup the virtualization, rather than those who spend hours trying to make passthrough work on unsupporting hardware, or to achieve impractical but ideal setups.
 
-This is not as obvious as it sounds, because there is a surprising amount of users who spend hours and hours trying to solve the infamous audio crackling issue, when a 3€ USB sound card solves the issue permanently and perfectly.
+This is not as obvious as it sounds, because there is a surprising amount of users willing to spend many hours trying to solve the infamous audio crackling issue, when a 3$ USB sound card solves the issue permanently and perfectly.
 
 ## Philosophy
 
-I think one common misunderstanding of VGA Passthrough is to conceptually put software before hardware, which leads to thinking that with enough tweaking and experimentation, a system will work.
+I think one common misunderstanding of VGA Passthrough is to conceptually put software before hardware, with the assumption that with enough tweaking and experimentation, a system will work well.
 
-This is not the case in real life: VGA Passthrough is not a very mature and widely supported technology, both in the software and hardware, and  may be well beyond the level of somebody without low-level knowledge of the technology.
+This is not the case in real world: VGA Passthrough is not a very mature/supported technology yet, both in the software and hardware, and fixing certain issues is impossible without low-level knowledge of the technologies involved.
 
-Trying to hammer a system intto working generally leads to a rabbit hole and loss of countless hours and hair; the unfortunate downside of this type of pursuits it that there is *always* one more change worth trying.
+Trying to hammer unsupporting hardware into working generally leads down the rabbit hole (where there is *always* one more change worth trying... that doesn't ultimately work), wasting large amounts of time and hair.
 
 However mature though, the upside is that on systems where the VGA Passthrough works without tweaks, it's very solid, virtually with no issues.
 
