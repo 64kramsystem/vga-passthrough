@@ -28,9 +28,9 @@ Reference: https://access.redhat.com/articles/65410
 
 ### CPU pinning
 
-Simply enabling it (using a patched QEMU) yielded a negligible improvement.
+Simply enabling it (using [my patched QEMU fork](https://github.com/saveriomiroddi/qemu-pinning)) yielded a negligible improvement.
 
-It is reported that it is mostly useful for reducing latency and stuttering.
+It is reported that it can reduce latency and stuttering in certain edge cases.
 
 Users that intend to try such tweak will also have to reserve the CPU cores to the VM for exclusive use.
 
