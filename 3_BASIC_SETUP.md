@@ -15,7 +15,8 @@ For a full installation, the following software is required:
 Install the latest OVMF Ubuntu package:
 
 ```sh
-wget http://de.archive.ubuntu.com/ubuntu/pool/universe/e/edk2/ovmf_0~20180803.dd4cae4d-1ubuntu1_all.deb -O /tmp/ovmf.deb
+latest_ovmf_package_link=$(wget http://archive.ubuntu.com/ubuntu/pool/universe/e/edk2 -O- | perl -ne 'print "$1\n" if /"(ovmf.+deb)"/' | tail -n 1)
+wget "http://archive.ubuntu.com/ubuntu/pool/universe/e/edk2/$latest_ovmf_package_link" -O /tmp/ovmf.deb
 dpkg -i /tmp/ovmf.deb
 ```
 
