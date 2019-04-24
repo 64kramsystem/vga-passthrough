@@ -23,7 +23,7 @@ Compile and build the tools:
 
     make -C BaseTools
     export EDK_TOOLS_PATH=$(pwd)/BaseTools
-    . edksetup.sh BaseTools
+    source edksetup.sh BaseTools
 
 Configure the build, in this case for an X64 target:
 
