@@ -16,7 +16,7 @@ Prepare the machine:
 
 Clone the repository and change path:
 
-    git clone https://github.com/tianocore/edk2.git
+    git clone --recursive https://github.com/tianocore/edk2.git
     cd edk2
 
 Compile and build the tools:
