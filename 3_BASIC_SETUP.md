@@ -151,7 +151,7 @@ export VGAPT_VIRTIO_DRIVERS_ISO=/path/to/virtio-win.iso
 export VGAPT_SHARED_FOLDERS=/path/to/shared_folders
 ```
 
-Invocation:
+Invocation (QEMU 4.0):
 
 ```sh
 cp -f $VGAPT_FIRMWARE_VARS $VGAPT_FIRMWARE_VARS_TMP &&
@@ -159,7 +159,7 @@ $QEMU_BINARY \
   -drive if=pflash,format=raw,readonly,file=$VGAPT_FIRMWARE_BIN \
   -drive if=pflash,format=raw,file=$VGAPT_FIRMWARE_VARS_TMP \
   -enable-kvm \
-  -machine q35,accel=kvm,mem-merge=off \
+  -machine q35,accel=kvm,mem-merge=off,kernel-irqchip=on \
   -cpu host,kvm=off,hv_vendor_id=vgaptrocks,hv_relaxed,hv_spinlocks=0x1fff,hv_vapic,hv_time \
   -smp $CORES_NUMBER,cores=$CORES_NUMBER,sockets=1,threads=1 \
   -m $VGAPT_MEMORY \
@@ -179,6 +179,8 @@ $QEMU_BINARY \
 ```
 
 The above command sets two cd drives (and ISOs), one for Windows, and the other for VirtIO.
+
+QEMU 3.x users should remove the `kernel-irqchip=on` option (see the [troubleshooting chapter](5_TROUBLESHOOTING.md)).
 
 Notes:
 
