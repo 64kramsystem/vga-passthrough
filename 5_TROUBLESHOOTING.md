@@ -1,10 +1,6 @@
 # Troubleshooting
 
-## Introduction to troubleshooting
-
-Currently, this section only has one suggestion; others may be added.
-
-### Using a more recent firmware
+## General issues: use a more recent firmware
 
 Sometimes, issues are due to bugs in the OVMF firmware. They typically manifest themselves as hangs on boot, and are sometimes triggered by QEMU updates.
 
@@ -41,3 +37,15 @@ Enjoy!:
     Build/OvmfX64/DEBUG_GCC5/FV/OVMF_CODE.fd
     Build/OvmfX64/DEBUG_GCC5/FV/OVMF_VARS.fd
 [Previous: Input handling](4_INPUT_HANDLING.md) | [Next: Possible improvements](6_POSSIBLE_IMPROVEMENTS.md)
+
+## QEMU 4.0 hangs
+
+QEMU 4.0 suffers from a regression, which causes both host and guest to hang on VM start (see [https://bugs.launchpad.net/qemu/+bug/1826422]).
+
+In order to workaround this problem, add `kernel-irqchip=on` to the `-machine` option, for example:
+
+```
+-machine q35,accel=kvm,mem-merge=off,kernel-irqchip=on
+```
+
+QEMU 3.x users don't need this option.
