@@ -1,30 +1,19 @@
 # Possible improvements
 
-## General improvements
+This section includes a list of possible improvements both to the configuration and the VM performance.
+
+With the proper configuration, covered fully until this point, my system yield already the "95% of native" performance, without stuttering; however, below I point some tweaks that may improve the performance of other users' setups.
+
+I find the best reference to be the [Arch passthrough wiki page](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF), so users may want to check it out.
+
+Thanks to Reddit user [tholin](https://www.reddit.com/user/tholin) for contributing specific details and improvements to this section.
+
+## Configuration improvements
 
 In this guide is not known:
 
 - whether there is a way to ensure that `vfio-pci` takes over before other drivers - maybe this is not required on any configuration;
 - whether `mem-merge=off` has overhead when only one VM is running at a time, or it doesn't (therefore, it's not meaningful to disable it);
-- the functionality of `kernel_irqchip=on`.
-
-## General optimizations
-
-The optimizations tried didn't yield any significant improvement, with a single exception for AMD platforms.
-
-Note that I try only their basic form, which in some cases may be insufficient; therefore, they may be effective when configured properly.
-
-Thanks to Reddit user [tholin](https://www.reddit.com/user/tholin) for contributing specific details and improvements to this section.
-
-### `performance` CPU governor
-
-Simply enabling it yielded a negligible improvement.
-
-It is reported that even when correctly setup, it makes a difference only on very specific cases (ie. workloads that change load a lot).
-
-Users that intend to try such tweak will also have to disable c-states.
-
-Reference: https://access.redhat.com/articles/65410
 
 ### CPU pinning
 
@@ -32,7 +21,7 @@ Simply enabling it (using [my patched QEMU fork](https://github.com/saveriomirod
 
 It is reported that it can reduce latency and stuttering in certain edge cases.
 
-Users that intend to try such tweak will also have to reserve the CPU cores to the VM for exclusive use.
+Users that intend to try such tweak should (but not necessarily) reserve the CPU cores to the VM for exclusive use.
 
 Reference: https://www.redhat.com/archives/vfio-users/2017-February/msg00010.html
 
