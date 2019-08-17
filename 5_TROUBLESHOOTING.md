@@ -48,4 +48,4 @@ In order to workaround this problem, add `kernel-irqchip=on` to the `-machine` o
 -machine q35,accel=kvm,mem-merge=off,kernel-irqchip=on
 ```
 
-QEMU 3.x users don't need this option.
+QEMU 3.x/4.1+ users don't need this option.

@@ -4,6 +4,8 @@
 
 All the commands must be run with sudo permissions.
 
+This guide assumes a reasonably modern machine and O/S, since several things have changed in the last years (CPU power saving, bug fixes in the kernel, etc.).
+
 ## Install/prepare required software
 
 For a full installation, the following software is required:
@@ -41,14 +43,6 @@ Only on Intel systems, set the IOMMU kernel parameter:
 ```sh
 perl -i -pe 's/(GRUB_CMDLINE_LINUX_DEFAULT=.*)"/\1 intel_iommu=on"/' /etc/default/grub
 update-grub
-```
-
-## AMD only: disable nested paging
-
-It's been reported (also verified on my previous AMD system) that nested paging must be disabled on AMD 4ᵗʰ generation CPUS (Bulldozer, ...), otherwise the system will go very slow (loss of around 70% of performance):
-
-```sh
-echo "options kvm-amd npt=0" > /etc/modprobe.d/kvm-amd.conf
 ```
 
 ## Check IOMMU, and set the data
@@ -118,6 +112,20 @@ qemu-img create -f qcow2 /path/to/virtual_disk.img 128G
 ```
 
 In the example above, the size is 128 GiB (dynamically allocated, so it will start with a minimal occupation).
+
+## Set the `Performance` governor
+
+On at least some systems (eg. the Intel i7-6700k), the CPU frequency may not ramp up when required, causing low performance problems (ie. stuttering). This happens because [KVM cannot actually change the CPU frequency on its own](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF#CPU_frequency_governor).
+
+In the past, typically, tweaking the `ondemand` governor solved the problem, however, nowadays, the scaling system is different, and this governor is not available anymore.
+
+The easiest solution is to force the CPU to use the maximum frequency for all the cores, by using the `performance` governor; this can be enabled and disabled at wish, in this case, before and after the virtualization session.
+
+A governor widget is typically displayed in the system tray, and it allows setting the governors (`Powersave` and `Performance`. Alternatively, it can be enabled with a simple command:
+
+```sh
+echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+```
 
 ## Execute QEMU, and install/prepare Windows
 
