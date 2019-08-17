@@ -13,9 +13,9 @@ Of course, VGA Passthrough is not appropriate for those seeking 100% of performa
 
 ## Guide and audience orientation
 
-This guide is intended to be a walkthrough more than a troubleshooting guide.
+This guide is intended to be a walkthrough, more than a troubleshooting guide.
 
-The audience is therefore, people who have hardware already known to work well with VFIO, and want an easy, hassle-free, way to setup the virtualization, rather than those who spend hours trying to make passthrough work on unsupporting hardware, or to achieve impractical but ideal setups.
+Therefore, the audience is people who own hardware already known to work well with VFIO, and want an easy, hassle-free, way to setup the virtualization, rather than those who spend hours trying to make passthrough work on unsupported hardware, or to achieve impractical but ideal setups.
 
 This is not as obvious as it sounds, because there is a surprising amount of users willing to spend many hours trying to solve the infamous audio crackling issue, when a 3$ USB sound card solves the issue permanently and perfectly.
 
@@ -25,10 +25,10 @@ I think one common misunderstanding of VGA Passthrough is to conceptually put so
 
 This is not the case in real world: VGA Passthrough is not a very mature/supported technology yet, both in the software and hardware, and fixing certain issues is impossible without low-level knowledge of the technologies involved.
 
-Trying to hammer unsupporting hardware into working generally leads down the rabbit hole (where there is *always* one more change worth trying... that doesn't ultimately work), wasting large amounts of time and hair.
+Trying to hammer unsupported hardware to make it work generally leads down the rabbit hole (where there is *always* one more change worth trying... that doesn't ultimately work), wasting large amounts of time and hair.
 
-However mature though, the upside is that on systems where the VGA Passthrough works without tweaks, it's very solid, virtually with no issues.
+Independently of the maturity though, the upside is that on systems where the VGA Passthrough works without tweaks, it's very solid, virtually with no issues.
 
-For time-sensitive people, the best strategy is to briefly test if the system is compatible (by following this guide), and if it doesn't, to directly plan a system upgrade, without attempting any tweak.
+For time-sensitive people, my advice is to briefly test if the system is compatible (by following this guide), and if it doesn't, to plan a system upgrade, without attempting any tweak.
 
 [Previous: General introduction](README.md) | [Next: A word of caution](2_A_WORD_OF_CAUTION.md)
