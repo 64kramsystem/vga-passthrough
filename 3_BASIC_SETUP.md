@@ -6,6 +6,8 @@ All the commands must be run with sudo permissions.
 
 This guide assumes a reasonably modern machine and O/S, since several things have changed in the last years (CPU power saving, bug fixes in the kernel, etc.).
 
+Two GPUs are required; the combination integrated + discrete is the best option. In some cases, it's possible to obtain the passthrough with a single GPU, however, it requires patching the card bios, and it's outside the scope of this guide.
+
 ## Install/prepare required software
 
 For a full installation, the following software is required:
