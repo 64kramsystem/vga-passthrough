@@ -13,11 +13,12 @@ The rationale for this document is that the information on the subject is spread
 2. [A word of caution](2_A_WORD_OF_CAUTION.md)
 3. [Basic setup](3_BASIC_SETUP.md)
 4. [Input handling](4_INPUT_HANDLING.md)
-5. [Troubleshooting](5_TROUBLESHOOTING.md)
-6. [Possible improvements](6_POSSIBLE_IMPROVEMENTS.md)
-7. [Profiling KVM](7_PROFILING_KVM.md)
-8. [QEMU Disk utils/LibGuestFS handy commands](8_USEFUL_TOOLS.md)
-9. [References](9_REFERENCES.md)
+5. [Monitors and speakers](5_MONITORS_AND_SPEAKERS.md)
+6. [Troubleshooting](6_TROUBLESHOOTING.md)
+7. [Possible improvements](7_POSSIBLE_IMPROVEMENTS.md)
+8. [Profiling KVM](8_PROFILING_KVM.md)
+9. [QEMU Disk utils/LibGuestFS handy commands](9_USEFUL_TOOLS.md)
+10. [References](10_REFERENCES.md)
 
 ## Help/Contributions
 
