@@ -53,4 +53,4 @@ rm /mnt/ZEROFILE
 # now compress the image (2.)
 ```
 
-[Previous: Profiling KVM](8_PROFILING_KVM.md) | [Next: References](10_REFERENCES.md)
+[Previous: Sample IOMMU groups](9_SAMPLE_IOMMU_GROUPS.md) | [Next: References](11_REFERENCES.md)
