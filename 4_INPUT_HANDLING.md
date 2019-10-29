@@ -108,4 +108,4 @@ Since nothing prevents QEMU to have a user interface (with an emulated video ada
 The machine will start with both displays. If the guest hangs, it's not problem, as QEMU still traps the exit hotkey, which can be used to restore control to the host.
 
 This strategy doesn't work for the case where QEMU hangs (crashes are instead ok), although this is very rare (if it ever happens); if a machine has this particular problem, the kill switch strategy can be applied.
-[Previous: Basic setup](3_BASIC_SETUP.md) | [Next: Troubleshooting](5_TROUBLESHOOTING.md)
+[Previous: Basic setup](3_BASIC_SETUP.md) | [Next: Monitors and speakers](5_MONITORS_AND_SPEAKERS.md)

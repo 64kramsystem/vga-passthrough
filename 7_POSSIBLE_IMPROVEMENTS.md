@@ -45,4 +45,4 @@ The following are limitations I've found during my VFIO experimentation stage (2
 - The enlightenment `hv_spinlocks=0x1fff` causes Windows 8.1 to reboot before completing the boot.
 - Windows 7 doesn't support enlightenments with OVMF (see https://bugzilla.redhat.com/show_bug.cgi?id=1185253, Additional info #2).
 
-[Previous: Troubleshooting](5_TROUBLESHOOTING.md) | [Next: Profiling KVM](7_PROFILING_KVM.md)
+[Previous: Troubleshooting](6_TROUBLESHOOTING.md) | [Next: Profiling KVM](8_PROFILING_KVM.md)

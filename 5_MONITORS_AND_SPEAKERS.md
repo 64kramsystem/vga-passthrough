@@ -44,3 +44,4 @@ In this case, the setup will be:
 - on-board SPDIF + monitor jack outputs -> speakers inputs
 
 The strategy is essentially the same. The difference is that when using the guest, the input is switched via switch.
+[Previous: Input handling](4_INPUT_HANDLING.md) | [Next: Troubleshooting](6_TROUBLESHOOTING.md)
