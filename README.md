@@ -17,8 +17,9 @@ The rationale for this document is that the information on the subject is spread
 6. [Troubleshooting](6_TROUBLESHOOTING.md)
 7. [Possible improvements](7_POSSIBLE_IMPROVEMENTS.md)
 8. [Profiling KVM](8_PROFILING_KVM.md)
-9. [QEMU Disk utils/LibGuestFS handy commands](9_USEFUL_TOOLS.md)
-10. [References](10_REFERENCES.md)
+9. [Sample IOMMU groups](9_SAMPLE_IOMMU_GROUPS.md)
+10. [QEMU Disk utils/LibGuestFS handy commands](10_USEFUL_TOOLS.md)
+11. [References](11_REFERENCES.md)
 
 ## Help/Contributions
 

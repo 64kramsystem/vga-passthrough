@@ -10,4 +10,4 @@
 8. https://help.ubuntu.com/community/KVM%20-%20Using%20Hugepages (enable hugepages)
 9. https://bbs.archlinux.org/viewtopic.php?pid=1270311#p1270311 (NPT et al.)
 
-[Previous: QEMU Disk utils/LibGuestFS handy commands](9_USEFUL_TOOLS.md)
+[Previous: QEMU Disk utils/LibGuestFS handy commands](10_USEFUL_TOOLS.md)
