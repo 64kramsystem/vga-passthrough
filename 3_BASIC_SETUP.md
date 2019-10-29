@@ -38,12 +38,17 @@ Install the QEMU package, plus utilities:
 apt-get install qemu-system-x86 qemu-utils
 ```
 
-## Intel only: enable IOMMU
+## Enable IOMMU
 
-Only on Intel systems, set the IOMMU kernel parameter:
+Set the IOMMU kernel parameter, according to the CPU manufacturer:
 
 ```sh
+# Intel
 perl -i -pe 's/(GRUB_CMDLINE_LINUX_DEFAULT=.*)"/\1 intel_iommu=on"/' /etc/default/grub
+# or AMD
+perl -i -pe 's/(GRUB_CMDLINE_LINUX_DEFAULT=.*)"/\1 amd_iommu=on"/' /etc/default/grub
+
+# Common
 update-grub
 ```
 
