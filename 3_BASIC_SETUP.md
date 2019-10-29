@@ -58,7 +58,13 @@ dmesg | grep -e DMAR -e IOMMU
 Check the IOMMU group:
 
 ```sh
-for iommu_group in $(find /sys/kernel/iommu_groups/ -maxdepth 1 -mindepth 1 -type d); do echo "IOMMU group $(basename "$iommu_group")"; for device in $(ls -1 "$iommu_group"/devices/); do echo -n $'\t'; lspci -nns "$device"; done; done
+for iommu_group in $(find /sys/kernel/iommu_groups/ -maxdepth 1 -mindepth 1 -type d); do
+  echo "IOMMU group $(basename "$iommu_group")"
+  for device in $(ls -1 "$iommu_group"/devices/); do
+    echo -n $'\t'
+    lspci -nns "$device"
+  done
+done
 ```
 
 IOMMU groups are sets of devices which can be virtualized only atomically; this is a sample of a good system:
