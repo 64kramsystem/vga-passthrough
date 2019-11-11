@@ -1,5 +1,13 @@
 # QEMU Disk utils/LibGuestFS handy commands
 
+1. Create a sparse (dynamically allocated) disk:
+
+    ```sh
+    # Yields a 100 GiB (not GB) disk.
+    # `-f qcow2` is required, as the default is raw (which preallocates all the space).
+    qemu-img create -f qcow2 "$DISK_IMAGE" 100G
+    ```
+
 1. Create a diff disk:
 
     ```sh
