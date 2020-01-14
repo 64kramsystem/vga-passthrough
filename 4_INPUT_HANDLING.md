@@ -101,7 +101,7 @@ Since nothing prevents QEMU to have a user interface (with an emulated video ada
 ```sh
 -vga qxl -display gtk -device vfio-pci
 # no `-device usb-host ...`
--device vfio-pci,host=$VGAPT_VGA_BUS,multifunction=on \
+-device vfio-pci,host=$VGAPT_VGA_BUS \
 -device vfio-pci,host=$VGAPT_VGA_AUDIO_BUS \
 ```
 

@@ -188,7 +188,7 @@ $QEMU_BINARY \
   -rtc base=localtime \
   -serial none -parallel none \
   -usb \
-  -device vfio-pci,host=$VGAPT_VGA_BUS,multifunction=on \
+  -device vfio-pci,host=$VGAPT_VGA_BUS \
   -device vfio-pci,host=$VGAPT_VGA_AUDIO_BUS \
   -device virtio-scsi-pci,id=scsi \
   -drive file=$VGAPT_DISK_IMAGE,id=disk,format=qcow2,if=none,cache=writeback -device scsi-hd,drive=disk \
@@ -206,6 +206,7 @@ QEMU 3.x users should remove the `kernel-irqchip=on` option (see the [troublesho
 Notes:
 
 - using `-bios` in place of the two `pflash` will prevent booting from the DVD;
+- the commonly set `multifunction=on` device property is a mistake (see [Reddit comment](https://www.reddit.com/r/VFIO/comments/arg25i/issue_using_rtx_2070_for_passthrough/ego6woz));
 - uses the video card audio (audio card emulation is poor/unstable);
 - shared folders are enabled (on the host, Samba is required);
 - this setup has two graphics adapters (emulated and VFIO), with the QEMU user interface; for a description of the input (keyboard/mouse) handling strategies, see the next chapter.
