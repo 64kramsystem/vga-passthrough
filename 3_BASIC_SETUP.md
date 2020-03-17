@@ -116,11 +116,28 @@ While it's possible that on some systems the device can be bound at any moment, 
 
 ## Ensure that the VGA drivers are not taking control of the card
 
-It's important to uninstall the host VGA drivers, if they are installed, as they may take over the card control before the VFIO driver.
+It's crucial to ensure that the vfio driver takes the card (components) over before the standard graphic driver does it.
 
-In case the drivers are standard part of the system (eg. nouveau), it's possible to blacklist them.
+There are two approaches to solve this problem.
 
-As of today, this document doesn't cover how to be 100% sure that VFIO takes control of one VGA, on a system with two cards from the same producer.
+The simplest is to uninstall the driver \[package\] or blacklist the driver; for example, in case of an Nvidia card:
+
+```sh
+# Execute one of the two.
+#
+$ apt purge "xserver-xorg-video-nouveau*"
+$ echo "blacklist nouveau" > /etc/modprobe.d/blacklist_nouveau.conf
+```
+
+The other approach is to use the [`softdep` modprobe command](https://www.systutorials.com/docs/linux/man/5-modprobe.d/), setting the load order via dependencies.
+
+```sh
+# Append this to the previously created file.
+#
+echo "softdep nouveau pre: vfio_pci" >> /etc/modprobe.d/vfio.conf
+```
+
+Note that this approach requires the name of the module as listed by `lsmod`, i.e. `vfio_pci` instead of `vfio-pci`. Feedback from other users on this subject would be helpful.
 
 ## Create a virtual disk
 
