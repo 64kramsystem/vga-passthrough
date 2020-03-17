@@ -98,8 +98,14 @@ VGAPT_VGA_AUDIO_BUS=01:00.1
 Bind the vfio driver to the graphic card before any other driver:
 
 ```sh
-echo options vfio-pci ids=$VGAPT_VGA_ID,$VGAPT_VGA_AUDIO_ID > /etc/modprobe.d/vfio.conf
-printf "vfio\nvfio_pci\n" > /etc/modules-load.d/vfio.conf
+cat > /etc/modprobe.d/vfio.conf << CONF
+options vfio-pci ids=$VGAPT_VGA_ID,$VGAPT_VGA_AUDIO_ID
+CONF
+
+cat > /etc/modules-load.d/vfio.conf << CONF
+vfio
+vfio_pci
+CONF
 
 update-initramfs -u
 ```
