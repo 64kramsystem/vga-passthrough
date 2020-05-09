@@ -139,6 +139,49 @@ echo "softdep nouveau pre: vfio_pci" >> /etc/modprobe.d/vfio.conf
 
 Note that this approach requires the name of the module as listed by `lsmod`, i.e. `vfio_pci` instead of `vfio-pci`.
 
+### Cards with a built-in USB controller
+
+Some cards, like the RTX 2070 Super, have a USB controller onboard, which causes an interesting problem.
+
+Since the USB driver (`xhci_hcd`) is built in the kernel, it takes control of the devices before the off-kernel modules (like the VFIO one); as a consequence, it can't be blacklisted, nor it can be set as dependency of the VFIO module.
+
+In such conditions, it's not possible to start a passthrough, because the IOMMU group will not have all the peripherals controlled by the VFIO module.
+
+Fortunately, the controller can be unbound from the `xhci_hcd` module and rebound to the VFIO module. What we want to do though, is to make sure this happens as early as possible, as good VFIO practice; this can be accomplished with an initramfs script.
+
+First, take note of the device using the IOMMU groups listing script; for example, this is the outout of an RTX 2070 super:
+
+```
+26:00.2 USB controller [0c03]: NVIDIA Corporation TU104 USB 3.1 Host Controller [10de:1ad8] (rev a1)
+```
+
+Then, execute the following, assigning to the `device_address` variable the address just gathered:
+
+```sh
+cat > /etc/initramfs-tools/scripts/init-top/vfio-rebind-vga-usb <<'SHELL'
+#!/bin/sh
+
+if [ "$1" = "prereqs" ]; then
+  echo ""
+  exit 0
+fi
+
+device_address="26:00.2" # replace here
+
+if [ -f "/sys/bus/pci/devices/0000:$device_address/driver/unbind" ]; then
+  echo "vfio: rebinding device at $device_address"
+  echo "0000:$device_address" > /sys/bus/pci/drivers/xhci_hcd/unbind
+  echo "0000:$device_address" > /sys/bus/pci/drivers/vfio-pci/bind
+else
+  echo "vfio error: didn't find the device to unbind (at $device_address)"
+fi
+SHELL
+
+chmod +x /etc/initramfs-tools/scripts/init-top/vfio-rebind-vga-usb
+```
+
+With this script, the device
+
 ## Create a virtual disk
 
 Create a virtual disk using the QEMU utility:
