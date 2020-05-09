@@ -118,18 +118,25 @@ While it's possible that on some systems the device can be bound at any moment, 
 
 It's crucial to ensure that the vfio driver takes the card (components) over before the standard graphic driver does it.
 
-There are two approaches to solve this problem.
+There are a few approaches to solve this problem, which depend on the O/S.
 
-The simplest is to uninstall the driver \[package\] or blacklist the driver; for example, in case of an Nvidia card:
+### Kernels with an off-kernel VFIO module
+
+On systems whose kernels has an off-kernel VFIO module (e.g. Ubuntu 18.04), there are a few approaches.
+
+An approach is to uninstall the driver \[package\]; for example, in case of an Nvidia card:
 
 ```sh
-# Execute one of the two.
-#
-$ apt purge "xserver-xorg-video-nouveau*"
-$ echo "blacklist nouveau" > /etc/modprobe.d/blacklist_nouveau.conf
+apt purge "xserver-xorg-video-nouveau*"
 ```
 
-The other approach is to use the [`softdep` modprobe command](https://www.systutorials.com/docs/linux/man/5-modprobe.d/), setting the load order via dependencies.
+Another approach is to blacklist the driver:
+
+```sh
+echo "blacklist nouveau" > /etc/modprobe.d/blacklist_nouveau.conf
+```
+
+The best approach, which is not blunt and makes a good use of the modules framework, is to use the [`softdep` modprobe command](https://www.systutorials.com/docs/linux/man/5-modprobe.d/), setting the load order via dependencies.
 
 ```sh
 # Append this to the previously created file.
@@ -151,8 +158,13 @@ Fortunately, the controller can be unbound from the `xhci_hcd` module and reboun
 
 First, take note of the device using the IOMMU groups listing script; for example, this is the outout of an RTX 2070 super:
 
-```
-26:00.2 USB controller [0c03]: NVIDIA Corporation TU104 USB 3.1 Host Controller [10de:1ad8] (rev a1)
+```sh
+lspci -nn  | grep '^26:'
+
+# 26:00.0 VGA compatible controller [0300]: NVIDIA Corporation TU104 [GeForce RTX 2070 SUPER] [10de:1e84] (rev a1)
+# 26:00.1 Audio device [0403]: NVIDIA Corporation TU104 HD Audio Controller [10de:10f8] (rev a1)
+# 26:00.2 USB controller [0c03]: NVIDIA Corporation TU104 USB 3.1 Host Controller [10de:1ad8] (rev a1)
+# 26:00.3 Serial bus controller [0c80]: NVIDIA Corporation TU104 USB Type-C UCSI Controller [10de:1ad9] (rev a1)
 ```
 
 Then, execute the following, assigning to the `device_address` variable the address just gathered:
@@ -178,9 +190,30 @@ fi
 SHELL
 
 chmod +x /etc/initramfs-tools/scripts/init-top/vfio-rebind-vga-usb
+
+update-initramfs -u
 ```
 
-With this script, the device
+### Kernels with a built-in kernel VFIO module
+
+Some systems, e.g. Ubuntu 20.04, have the VFIO module built in the kernel; this makes configuration very simple.
+
+Just run the IOMMU groups listing script, but this time, take note of the device ids (as opposed as the bus addresses), and add a `vfio-pci.ids` kernel parameter:
+
+```sh
+lspci -nn | grep '^26:'
+
+# 26:00.0 VGA compatible controller [0300]: NVIDIA Corporation TU104 [GeForce RTX 2070 SUPER] [10de:1e84] (rev a1)
+# 26:00.1 Audio device [0403]: NVIDIA Corporation TU104 HD Audio Controller [10de:10f8] (rev a1)
+# 26:00.2 USB controller [0c03]: NVIDIA Corporation TU104 USB 3.1 Host Controller [10de:1ad8] (rev a1)
+# 26:00.3 Serial bus controller [0c80]: NVIDIA Corporation TU104 USB Type-C UCSI Controller [10de:1ad9] (rev a1)
+
+perl -i -pe 's/(GRUB_CMDLINE_LINUX_DEFAULT=.*)"/$1 vfio-pci.ids=10de:1e84,10de:10f8,10de:1ad8,10de:1ad9"/' /etc/default/grub
+
+update-grub
+```
+
+The advantage of this setup is that no initramfs scripts are needed, since `vfio-pci` now runs in the same context as `xhci_hcd`, and is able to take over the control of the device.
 
 ## Create a virtual disk
 

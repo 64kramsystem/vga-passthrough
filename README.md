@@ -31,15 +31,19 @@ The best workflow is to create a Pull request with the modifications, but you ca
 
 ## Reference system
 
-This guide has been executed on the following system:
+This guide has been executed on the following systems:
 
+- Ubuntu 18.04 and 20.04 x86-64
+- MSI B450M Mortar
+- AMD Ryzen 7 3800X
+- Asus ROG Strix 2070 Super
+<!-- -->
 - Ubuntu 16.04 x86-64
 - ASRock Mini ITX FATAL1TY Z170 Gaming-ITX/AC
 - Intel i7-6700K
 - Gigabyte GTX 960 GV-N960IXOC-2GD
-
-there are also references to my previous one:
-
+<!-- -->
+- Ubuntu 16.04 x86-64
 - Gigabyte GA-F2A88XN-WIFI FM2+ Mini ITX
 - AMD A10-7800
 - Gigabyte GTX 960 GV-N960IXOC-2GD
