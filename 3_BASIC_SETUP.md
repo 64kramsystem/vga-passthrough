@@ -137,7 +137,7 @@ The other approach is to use the [`softdep` modprobe command](https://www.systut
 echo "softdep nouveau pre: vfio_pci" >> /etc/modprobe.d/vfio.conf
 ```
 
-Note that this approach requires the name of the module as listed by `lsmod`, i.e. `vfio_pci` instead of `vfio-pci`. Feedback from other users on this subject would be helpful.
+Note that this approach requires the name of the module as listed by `lsmod`, i.e. `vfio_pci` instead of `vfio-pci`.
 
 ## Create a virtual disk
 
