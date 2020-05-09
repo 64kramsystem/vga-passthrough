@@ -1,6 +1,6 @@
 # Troubleshooting
 
-## General issues: use a more recent firmware
+## General virtual machine issues: use a more recent firmware
 
 Sometimes, issues are due to bugs in the OVMF firmware. They typically manifest themselves as hangs on boot, and are sometimes triggered by QEMU updates.
 
