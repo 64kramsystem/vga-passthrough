@@ -53,7 +53,7 @@ The strategy is essentially the same. The difference is that when using the gues
 
 ## Passing the integrated audio device
 
-In some systems, the integrated audio device is on its own system, for example, on the MSI MAG B550 Mortar:
+In some systems, the integrated audio device is on its own group, for example, on the MSI MAG B550 Mortar:
 
 ```
 IOMMU group 19
@@ -62,11 +62,19 @@ IOMMU group 19
 
 The convenience of this setup is that one can have a single audio pipeline; when the VM is started, the audio device is unbound from the audio driver and bound to the vfio one, and when the VM is shut down, the opposite.
 
-The problem is that the audio device (at least, on the system I've tested) is not stable after unbinding. It works, but not always, sometimes making it unusable both in the host and in the guest.
-
-For those who want to try, the procedure is simple:
+This is not guaranteed to work; while it works stably on the tested system, rebinding a device is an inherently unstable operation. For those who want to try, the procedure is simple:
 
 ```sh
+# This is necessary, at least on the tested setup. It may be possible to run it only once per host boot;
+# if scripted, running it on each VM startup doesn't hurt.
+#
+# Its purpose is documented here: https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci:
+#
+# > This may allow the driver to support more hardware than was included in the driver's static device
+# > ID support table at compile time.
+#
+echo "1022 1487" | sudo tee /sys/bus/pci/drivers/vfio-pci/new_id
+
 # On VM startup
 echo "0000:2d:00.4" | sudo tee /sys/bus/pci/drivers/snd_hda_intel/unbind
 echo "0000:2d:00.4" | sudo tee /sys/bus/pci/drivers/vfio-pci/bind
@@ -95,13 +103,6 @@ $ lspci -v | perl -ne 'print if (/^2d:00.4/ .. /^$/) && /Kernel/'
 	Kernel modules: snd_hda_intel
 ```
 
-However, the device/system can end up in odd states, like:
-
-- errors are printed when binding, but the the passthrough works;
-- no drivers are listed in use, but the passthrough works;
-- the device "disappears", making it impossible to be bound back to any device;
-- and so on.
-
-Even on successful runs, QEMU will show a warning like `Cannot reset device <BUS_ID>, depends on group <GROUP_NUM> which is not owned.`; this can supposedly be ignored.
+Currently, QEMU will show a warning like `Cannot reset device <BUS_ID>, depends on group <GROUP_NUM> which is not owned.`; this will delay the QEMU startup time, but can supposedly be ignored.
 
 [Previous: Input handling](4_INPUT_HANDLING.md) | [Next: Troubleshooting](6_TROUBLESHOOTING.md)
