@@ -276,7 +276,7 @@ Invocation (QEMU 4.0):
 ```sh
 cp -f $VGAPT_FIRMWARE_VARS $VGAPT_FIRMWARE_VARS_TMP &&
 $QEMU_BINARY \
-  -drive if=pflash,format=raw,readonly,file=$VGAPT_FIRMWARE_BIN \
+  -drive if=pflash,format=raw,readonly=on,file=$VGAPT_FIRMWARE_BIN \
   -drive if=pflash,format=raw,file=$VGAPT_FIRMWARE_VARS_TMP \
   -enable-kvm \
   -machine q35,accel=kvm,mem-merge=off,kernel-irqchip=on \
