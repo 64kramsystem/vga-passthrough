@@ -60,9 +60,13 @@ IOMMU group 19
 	2d:00.4 Audio device [0403]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse HD Audio Controller [1022:1487]
 ```
 
-The convenience of this setup is that one can have a single audio pipeline; when the VM is started, the audio device is unbound from the audio driver and bound to the vfio one, and when the VM is shut down, the opposite.
+This allows passing the device through (although it will cause a warning due to dependency on another group - see end of section).
 
-This is not guaranteed to work; while it works stably on the tested system, rebinding a device is an inherently unstable operation. For those who want to try, the procedure is simple:
+The convenience of this setup is that one can have a single audio pipeline; when the VM is started, the audio device can be unbound from the audio driver and bound to the vfio one, and when the VM is shut down, the opposite.
+
+On the tested system, this worked stably, but it needs to be kept in mind that hot swapping is not necessarily supported by the component/driver.
+
+For those who want to try, the procedure is simple:
 
 ```sh
 # This is necessary, at least on the tested setup. It may be possible to run it only once per host boot;
@@ -103,6 +107,6 @@ $ lspci -v | perl -ne 'print if (/^2d:00.4/ .. /^$/) && /Kernel/'
 	Kernel modules: snd_hda_intel
 ```
 
-Currently, QEMU will show a warning like `Cannot reset device <BUS_ID>, depends on group <GROUP_NUM> which is not owned.`; this will delay the QEMU startup time, but can supposedly be ignored.
+On the test setup, QEMU displays a warning `Cannot reset device <BUS_ID>, depends on group <GROUP_NUM> which is not owned.`; this delays the QEMU startup time, but can be ignored.
 
 [Previous: Input handling](4_INPUT_HANDLING.md) | [Next: Troubleshooting](6_TROUBLESHOOTING.md)
