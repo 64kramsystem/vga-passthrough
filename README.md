@@ -13,7 +13,7 @@ The rationale for this document is that the information on the subject is spread
 2. [VGA Passthrough Problems](2_VGA_PASSTHROUGH_PROBLEMS.md)
 3. [Basic setup](3_BASIC_SETUP.md)
 4. [Input handling](4_INPUT_HANDLING.md)
-5. [Monitors and speakers](5_MONITORS_AND_SPEAKERS.md)
+5. [Monitors and audio](5_MONITORS_AND_AUDIO.md)
 6. [Troubleshooting](6_TROUBLESHOOTING.md)
 7. [Possible improvements](7_POSSIBLE_IMPROVEMENTS.md)
 8. [Profiling KVM](8_PROFILING_KVM.md)
