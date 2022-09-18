@@ -24,6 +24,21 @@ This setup had very good average framerate (truly ~95% across the board, as comm
 
 "Near native performance"? Not so much.
 
+## USB ports are emulated
+
+USB ports, in the default configuration, are emulated by QEMU; they're not passed through as one would think.
+
+This can cause some problems. For example, as of around 2020 (and possibly, even as of 2022), there is a problem across the USB stack (either the Linux driver, or a bug in QEMU) that prevents the Xbox 360 controller to work properly when connected via USB.
+
+In some cases, it's possible to pass through the whole USB controller, which typically includes multiple ports, but in some cases, it isn't (for example, with my latest motherboard, it wasn't possible), or it's undesirable.
+
+If one is not aware of this, it can be very confusing.
+
+There are two workarounds to this problem:
+
+1. Buy a USB card and pass it through;
+2. Use [hotplugger](https://github.com/darkguy2008/hotplugger) - a program that does some trickery in order to allow passing single USB ports.
+
 ## Conclusion
 
 VFIO is a relatively complicated topic, and one should healthily distrust typical "IT WORKS P3RF3CTLY" statements, as they are typically motivated by attention-seeking, without regard for technical accuracy.
