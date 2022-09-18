@@ -1,4 +1,8 @@
-# A word of caution
+# VGA Passthrough Problems
+
+It's quite common to hear that "VGA passthrough works perfectly". This section explains some important pitfalls, and gives food for thought.
+
+## A word of caution
 
 VGA passthrough is associated with "near-native" or "95%" performance.
 
@@ -20,8 +24,10 @@ This setup had very good average framerate (truly ~95% across the board, as comm
 
 "Near native performance"? Not so much.
 
-With this I want to highlight that VFIO is a relatively complicated matter, and you should healthily distrust typical "IT WORKS P3RF3CTLY" statements, as they are significantly subject to narcissism and/or plain incompetence (I had the very same experience when building a Raspberry Pi access point, and with the Surface Pro 3... but they're other stories).
+## Conclusion
 
-I stress that this example is not representative of the success rate of VFIO setups; it's a suggestion that information[s] must be very carefully analyzed.
+VFIO is a relatively complicated topic, and one should healthily distrust typical "IT WORKS P3RF3CTLY" statements, as they are typically motivated by attention-seeking, without regard for technical accuracy.
+
+I'm not implying by any means that VFIO *can't* work well, but I had the exact same experience with other technologies, and it's crucial to know very well what one is getting into, before spending a considerable amount of time.
 
 [Previous: Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md) | [Next: Basic setup](3_BASIC_SETUP.md)

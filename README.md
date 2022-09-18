@@ -10,7 +10,7 @@ The rationale for this document is that the information on the subject is spread
 
 0. [General introduction](README.md)
 1. [Introduction to VGA Passthrough](1_INTRODUCTION_TO_VGA_PASSTHROUGH.md)
-2. [A word of caution](2_A_WORD_OF_CAUTION.md)
+2. [VGA Passthrough Problems](2_VGA_PASSTHROUGH_PROBLEMS.md)
 3. [Basic setup](3_BASIC_SETUP.md)
 4. [Input handling](4_INPUT_HANDLING.md)
 5. [Monitors and speakers](5_MONITORS_AND_SPEAKERS.md)
