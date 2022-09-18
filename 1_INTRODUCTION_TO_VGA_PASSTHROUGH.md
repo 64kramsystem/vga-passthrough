@@ -31,4 +31,4 @@ Independently of the maturity though, the upside is that on systems where the VG
 
 For time-sensitive people, my advice is to briefly test if the system is compatible (by following this guide), and if it doesn't, to plan a system upgrade, without attempting any tweak.
 
-[Previous: General introduction](README.md) | [Next: A word of caution](2_A_WORD_OF_CAUTION.md)
+[Previous: General introduction](README.md) | [Next: VGA Passthrough Problems](2_VGA_PASSTHROUGH_PROBLEMS.md)

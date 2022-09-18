@@ -310,4 +310,4 @@ Notes:
 - shared folders are enabled (on the host, Samba is required);
 - this setup has two graphics adapters (emulated and VFIO), with the QEMU user interface; for a description of the input (keyboard/mouse) handling strategies, see the next chapter.
 
-[Previous: A word of caution](2_A_WORD_OF_CAUTION.md) | [Next: Input handling](4_INPUT_HANDLING.md)
+[Previous: VGA Passthrough Problems](2_VGA_PASSTHROUGH_PROBLEMS.md) | [Next: Input handling](4_INPUT_HANDLING.md)
