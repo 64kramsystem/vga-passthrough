@@ -49,4 +49,5 @@ In order to workaround this problem, add `kernel-irqchip=on` to the `-machine` o
 ```
 
 QEMU 3.x/4.1+ users don't need this option.
+
 [Previous: Monitors and audio](5_MONITORS_AND_AUDIO.md) | [Next: Possible improvements](7_POSSIBLE_IMPROVEMENTS.md)
