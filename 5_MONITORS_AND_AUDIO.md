@@ -1,4 +1,4 @@
-# Monitors and speakers
+# Monitors and audio
 
 <!-- - [Monitors and speakers](#monitors-and-speakers) -->
   - [Introduction](#introduction)
