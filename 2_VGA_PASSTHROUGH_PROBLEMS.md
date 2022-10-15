@@ -20,7 +20,7 @@ But let's have a more detailed look at the graphs:
 
 ... ooops!
 
-This setup had very good average framerate (truly ~95% across the board, as commonly), but severe issues with latency, causing wild stuttering.
+This setup had very good average framerate (truly ~95% across the board, as commonly described), but severe issues with latency, causing wild stuttering.
 
 "Near native performance"? Not so much.
 
