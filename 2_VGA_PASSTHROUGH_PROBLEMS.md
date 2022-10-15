@@ -15,8 +15,8 @@ This is an example benchmark (with a little editing) of Metro Last Light Redux, 
 
 But let's have a more detailed look at the graphs:
 
-![Native](https://rawgithub.com/saveriomiroddi/vga-passthrough/master/metro_benchmark/native_amd.svg)
-![VFIO](https://rawgithub.com/saveriomiroddi/vga-passthrough/master/metro_benchmark/vfio_amd.svg)
+![Native](metro_benchmark/native_amd.svg)
+![VFIO](metro_benchmark/vfio_amd.svg)
 
 ... ooops!
 
